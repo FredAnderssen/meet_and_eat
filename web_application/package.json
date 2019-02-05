@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.com/meatandeat/meat_eat_platform.git"
+    "url": "git+https://github.com/FredAnderssen/meet_and_eat.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://gitlab.com/meatandeat/meat_eat_platform/issues"
+    "url": "https://github.com/FredAnderssen/meet_and_eat/issues"
   },
-  "homepage": "https://gitlab.com/meatandeat/meat_eat_platform#README",
+  "homepage": "https://github.com/FredAnderssen/meet_and_eat#readme",
   "dependencies": {
     "express": "^4.16.4",
     "nodemon": "^1.18.9"
