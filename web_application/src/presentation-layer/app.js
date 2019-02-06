@@ -22,5 +22,5 @@ app.get('/', function(request, response) {
 })
 
 app.listen(8080, function() {
-    console.log("Web app running on test 8080")
+    console.log("Web app runing on test 8080")
 })
