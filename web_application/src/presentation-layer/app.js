@@ -6,12 +6,12 @@ const path = require('path')
 const app = express()
 
 app.set('views', path.join(__dirname, 'views'))
-app.set('partialsDir', 'views/partials/')
 
 app.engine('hbs', expressHandlebars({
   defaultLayout: 'main',
-  extname: '.hbs',
-  layoutsDir: path.join(__dirname, 'layouts')
+  extname: 'hbs',
+  layoutsDir: path.join(__dirname, 'layouts'),
+  partialsDir: path.join(__dirname, 'views', 'partials')
 }))
 
 app.use(bodyParser.urlencoded({extended: false}))
@@ -22,5 +22,5 @@ app.get('/', function(request, response) {
 })
 
 app.listen(8080, function() {
-    console.log("Web app runing on test 8080")
+    console.log("Web app runing on test 3000")
 })
