@@ -2,6 +2,7 @@ const express = require('express')
 const expressHandlebars = require('express-handlebars')
 const bodyParser = require('body-parser')
 const path = require('path')
+const accountRouter = require('./routers/account-router')
 
 const app = express()
 
@@ -13,6 +14,9 @@ app.engine('hbs', expressHandlebars({
   layoutsDir: path.join(__dirname, 'layouts'),
   partialsDir: path.join(__dirname, 'views', 'partials')
 }))
+
+// Attach all routers.
+app.use('/accounts', accountRouter)
 
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(express.static('public_html'))
