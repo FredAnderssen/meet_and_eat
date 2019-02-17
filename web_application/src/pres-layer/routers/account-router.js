@@ -1,5 +1,5 @@
 const express = require('express')
-const accountManager = require('../../bus-layer/managers/account-manager')
+const accountManager = require('../test')
 const router = express.Router()
 
 router.get("/sign-up", function(request, response){
