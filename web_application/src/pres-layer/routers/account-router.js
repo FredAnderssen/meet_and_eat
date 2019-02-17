@@ -1,5 +1,5 @@
 const express = require('express')
-const accountManager = require('../test')
+const accountManager = require('../../data-layer/repositories/account-repository')
 const router = express.Router()
 
 router.get("/sign-up", function(request, response){

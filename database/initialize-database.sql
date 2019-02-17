@@ -2,6 +2,7 @@
 
 CREATE TABLE accounts (
 	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	email VARCHAR(30) NOT NULL,
 	username VARCHAR(50) NOT NULL,
 	password VARCHAR(30) NOT NULL,
 	CONSTRAINT usernameUnique UNIQUE (username)
@@ -19,6 +20,6 @@ CREATE TABLE comments (
 );
 
 -- Create a dummy account for testing.
-INSERT INTO accounts (username, password) VALUES ("Kevin", "abcd123");
+INSERT INTO accounts (email, username, password) VALUES ("kevin.test@hotmail.com", "Kevin", "abcd123");
 INSERT INTO cards (cardTitle) VALUES ("Kevins card");
 INSERT INTO comments (comment) VALUES ("Kevins kommentar");

@@ -1,4 +1,4 @@
-const dummydb = require('./dummy-db')
+const db = require('./db')
 
 /*
 	Retrieves all accounts ordered by username.
@@ -48,8 +48,8 @@ exports.getAccountByUsername = function(username, callback){
 */
 exports.createAccount = function(account, callback){
 	
-	const query = `INSERT INTO accounts (username, password) VALUES (?, ?)`
-	const values = [account.username, account.password]
+	const query = `INSERT INTO accounts (email, username, password) VALUES (?, ?, ?)`
+	const values = [account.email, account.username, account.password]
 	
 	db.query(query, values, function(error, results){
 		if(error){
