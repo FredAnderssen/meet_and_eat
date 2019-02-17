@@ -1,5 +1,5 @@
 const express = require('express')
-const accountManager = require('../../data-layer/repositories/account-repository')
+const accountManager = require('../../bus-layer/managers/account-manager')
 const router = express.Router()
 
 router.get("/sign-up", function(request, response){
@@ -33,6 +33,25 @@ router.get('/:username', function(request, response){
 		response.render("accounts-show-one.hbs", model)
 	})
 	
+})
+
+
+router.post("/sign-up", function(request, response) {
+
+	const account = {
+		email = document.getElementById("email"),
+		username = request.body.username,
+		password = request.body.password
+	}
+
+
+	try {
+		(accountManager.createAccount(account))
+	} catch(error){
+
+	}
+
+
 })
 
 module.exports = router

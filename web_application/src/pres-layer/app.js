@@ -25,6 +25,11 @@ app.get('/', function(request, response) {
   response.render('index.hbs')
 })
 
+
 app.listen(8080, function() {
     console.log("Jo okej CNNNNUNT jnej HAH nej nejo")
 })
+
+
+
+
