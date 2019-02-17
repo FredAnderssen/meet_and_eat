@@ -26,5 +26,5 @@ app.get('/', function(request, response) {
 })
 
 app.listen(8080, function() {
-    console.log("Jo jo jnej nej nejo")
+    console.log("Jo okej CUNT jnej HAH nej nejo")
 })
