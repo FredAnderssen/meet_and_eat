@@ -13,10 +13,9 @@ exports.createAccount = function(account, callback){
 	if(0 < errors.length){
 		callback(errors, null)
 		return
+	} else {
+		accountRepository.createAccount(account, callback)
 	}
-	
-	accountRepository.createAccount(account, callback)
-	
 }
 
 exports.getAccountByUsername = function(username, callback){
