@@ -23,3 +23,9 @@ CREATE TABLE comments (
 INSERT INTO accounts (email, username, password) VALUES ("kevin.test@hotmail.com", "Kevin", "abcd123");
 INSERT INTO cards (cardTitle) VALUES ("Kevins card");
 INSERT INTO comments (comment) VALUES ("Kevins kommentar");
+INSERT INTO cards (cardTitle) VALUES ("Olles card");
+INSERT INTO cards (cardTitle) VALUES ("Kims card");
+INSERT INTO cards (cardTitle) VALUES ("Mikaels card");
+INSERT INTO cards (cardTitle) VALUES ("Pods card");
+INSERT INTO cards (cardTitle) VALUES ("Amelia card");
+INSERT INTO cards (cardTitle) VALUES ("Filippa card");

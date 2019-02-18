@@ -1,5 +1,5 @@
 const cardsRepository = require('../../data-layer/repositories/cards-repository')
 
-exports.getAllCards = function(callback) {
+exports.getAllCards = callback => {
   cardsRepository.getAllCards(callback)
 }
