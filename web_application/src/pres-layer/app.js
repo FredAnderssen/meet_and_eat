@@ -25,5 +25,7 @@ app.use('/accounts', accountRouter)
 app.use('/', cardsRouter)
 
 app.listen(8080, function() {
-    console.log("Jo okejjnej HAH nej nejo")
+    console.log("Listening to 3000")
 })
+
+
