@@ -1,7 +1,7 @@
-FROM node:11.5.0
+FROM node:latest
 EXPOSE 8080
-WORKDIR /web-application
+WORKDIR /web_application
 COPY package*.json ./
 RUN npm install
-COPY src/presentation-layer/app.js src/app.js
+COPY src src
 CMD ["npm", "run", "start"]
