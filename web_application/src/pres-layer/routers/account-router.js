@@ -39,9 +39,7 @@ router.get('/:username', function(request, response){
 router.post("/sign-up", function(request, response) {
 
 	const account = {
-		email = document.getElementById("email"),
-		username = request.body.username,
-		password = request.body.password
+		
 	}
 
 

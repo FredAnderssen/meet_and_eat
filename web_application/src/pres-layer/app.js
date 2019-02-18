@@ -27,7 +27,7 @@ app.get('/', function(request, response) {
 
 
 app.listen(8080, function() {
-    console.log("Jo okej CNNNNUNT jnej HAH nej nejo")
+    console.log("Listening to 3000")
 })
 
 
