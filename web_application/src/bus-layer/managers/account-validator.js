@@ -3,7 +3,7 @@ const MAX_USERNAME_LENGTH = 10
 const MIN_PASSWORD_LENGTH = 3
 
 exports.getErrorsNewAccount = function(account){
-	
+
 	const errors = []
 	
 	// Validate username.
@@ -18,13 +18,13 @@ exports.getErrorsNewAccount = function(account){
 	if(!account.hasOwnProperty("email")){
 		errors.push("emailMissing")
 	}else if(!account.email.includes("@")){
-		errors.push("emailNotContainingAt")
+		errors.push("emailDoesntContainAt")
 	}
 	
-	if(!account.hasOwnProperty("password1") && !account.hasOwnProperty("password2")){
-		errors.push("passwordMissing")
-	}else if(account.password1.length <= MIN_PASSWORD_LENGTH){
-		errors.push("passwordTooShort")
+	if(!account.hasOwnProperty("password1")){
+		errors.push("password1Missing")
+	}else if(!account.hasOwnProperty("password2")){
+		errors.push("password2Missing")
 	}else if(account.password1 != account.password2){
 		errors.push("passwordsDoesntMatch")
 	}

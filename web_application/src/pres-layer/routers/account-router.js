@@ -40,15 +40,16 @@ router.post('/sign-up', function(request, response) {
 	var email = request.body.email
 	var password1 = request.body.password1
 	var password2 = request.body.password2
-	var accountCredentials = [
-		username,
-		email,
-		password1,
-		password2
-	]
+	var accountCredentials = {
+		username: username,
+		email: email,
+		password1: password1,
+		password2: password2
+	}
 
 	accountManager.createAccount(accountCredentials, function(error, callback) {
-		callback(true)
+		console.log("accountmanager create account " + error)
+
 	})
 })
 

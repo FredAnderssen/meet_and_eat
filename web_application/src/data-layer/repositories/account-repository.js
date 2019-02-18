@@ -17,7 +17,6 @@ exports.getAllAccounts = function(callback){
 			callback([], accounts)
 		}
 	})
-	
 }
 
 /*
@@ -46,9 +45,8 @@ exports.getAccountByUsername = function(username, callback){
 	Possible errors: databaseError, usernameTaken
 	Success value: The id of the new account.
 */
-exports.createAccount = function(account, callback){
 
-	console.log("account-repository" + account)
+exports.createAccount = function(account, callback){
 	
 	const query = `INSERT INTO accounts (email, username, password) VALUES (?, ?, ?)`
 	const values = [account.email, account.username, account.password1]
@@ -61,5 +59,4 @@ exports.createAccount = function(account, callback){
 			callback([], results.insertId)
 		}
 	})
-	
 }
