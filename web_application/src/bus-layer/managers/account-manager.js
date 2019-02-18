@@ -6,7 +6,7 @@ exports.getAllAccounts = function(callback){
 }
 
 exports.createAccount = function(account, callback){
-	
+
 	// Validate the account.
 	const errors = accountValidator.getErrorsNewAccount(account)
 	
@@ -14,7 +14,7 @@ exports.createAccount = function(account, callback){
 		callback(errors, null)
 		return
 	}
-	
+	console.log("account manager" + account)
 	accountRepository.createAccount(account, callback)
 	
 }

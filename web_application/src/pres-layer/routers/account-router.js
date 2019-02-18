@@ -35,15 +35,22 @@ router.get('/:username', function(request, response){
 	
 })
 
-router.get("/sign-up", function(request, response) {
+router.post('/sign-up', function(request, response) {
+	var username = request.body.username
+	var email = request.body.email
+	var password1 = request.body.password1
+	var password2 = request.body.password2
+	var accountCredentials = [
+		username,
+		email,
+		password1,
+		password2
+	]
 
-	response.render("accounts-sign-up.hbs")
-
+	accountManager.createAccount(accountCredentials, function(error, callback) {
+		callback(true)
+	})
 })
 
-router.post("/sign-up", function(request, response) {
-	var email = 
-	console.log(email)
-})
 
 module.exports = router

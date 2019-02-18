@@ -15,14 +15,18 @@ app.engine('hbs', expressHandlebars({
   partialsDir: path.join(__dirname, 'views', 'partials')
 }))
 
-// Attach all routers.
-app.use('/accounts', accountRouter)
-
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(express.static('public_html'))
 
+
+
+// Routers
+app.use('/accounts', accountRouter)
+
 app.get('/', function(request, response) {
+  
   response.render('index.hbs')
+  
 })
 
 
