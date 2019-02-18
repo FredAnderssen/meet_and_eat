@@ -2,7 +2,7 @@
   <div class="hero-body">
     <div class="container">
       <h1 class="title">
-        Hero title CUNT
+        Hero title CUNT FUCKHEAD
       </h1>
       <h2 class="subtitle">
         <a href="/accounts/sign-up">Sign up</a>
@@ -24,22 +24,18 @@
   <div class="container">
     <h1 class="title">TABS</h1>
     <h2 class="subtitle">
-      reading yeah
+
     </h2>
   </div>
 </section>
 
-<div class="columns">
-  <div class="column">
-    First column
+<!-- loop through all db cards here-->
+<div class="columns is-mobile is-multiline is-2">
+  {{#each cards}}
+  <div class="column is-4">
+    <div class="box">
+      {{cardTitle}}
+    </div>
   </div>
-  <div class="column">
-    Second column
-  </div>
-  <div class="column">
-    Third column
-  </div>
-  <div class="column">
-    Fourth column
-  </div>
+  {{/each}}
 </div>

@@ -2,7 +2,9 @@ const express = require('express')
 const expressHandlebars = require('express-handlebars')
 const bodyParser = require('body-parser')
 const path = require('path')
+
 const accountRouter = require('./routers/account-router')
+const cardsRouter = require('./routers/cards-router')
 
 const app = express()
 
@@ -18,17 +20,9 @@ app.engine('hbs', expressHandlebars({
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(express.static('public_html'))
 
-
-
-// Routers
+// Attach all routers.
 app.use('/accounts', accountRouter)
-
-app.get('/', function(request, response) {
-  
-  response.render('index.hbs')
-  
-})
-
+app.use('/', cardsRouter)
 
 app.listen(8080, function() {
     console.log("Listening to 3000")
