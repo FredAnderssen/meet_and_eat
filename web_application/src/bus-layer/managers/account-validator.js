@@ -21,11 +21,15 @@ exports.getErrorsNewAccount = function(account){
 		errors.push("Email is incorrect")
 	}
 	
-	if(!account.hasOwnProperty("password1")){
+	if(account.hasOwnProperty("password1") == null){
 		errors.push("No password entered")
-	}else if(!account.hasOwnProperty("password2")){
+	}
+	
+	if(account.hasOwnProperty("password2") == null){
 		errors.push("No password entered")
-	}else if(account.password1 != account.password2){
+	}
+	
+	if(account.password1 != account.password2){
 		errors.push("The two passwords doesn't match")
 	}
 

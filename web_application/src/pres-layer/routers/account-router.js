@@ -49,13 +49,13 @@ router.post('/sign-up', function(request, response) {
 
 		if(0 < error.length) {
 			errors.push(error)
-			response.render("error.hbs", {errorModel: errors[0]})
+			response.render("error.hbs", {model: errors[0]})
 
 		} else {
-			var model = {
+			var approvalModel = {
 				id: insertionID
 			}
-			response.render("index.hbs", model)
+			response.render("index.hbs", approvalModel)
 		}	
 	})	
 })

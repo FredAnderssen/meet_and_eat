@@ -9,6 +9,12 @@
 </section>
 
 
+{{#if model}}
+  {{#each}}
+    <p>Successfully created account with id: {{this}}</p>
+  {{/each}}
+{{/if}}
+
 <!-- loop through all db cards here-->
 <div class="columns is-mobile is-multiline is-2">
   {{#each cards}}
