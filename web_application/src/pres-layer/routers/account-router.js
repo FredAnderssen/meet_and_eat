@@ -38,29 +38,25 @@ router.get('/:username', function(request, response){
 router.post('/sign-up', function(request, response) {
 
 	var errors = []
-	var username = request.body.username
-	var email = request.body.email
-	var password1 = request.body.password1
-	var password2 = request.body.password2
-
 	var accountCredentials = {
-		username: username,
-		email: email,
-		password1: password1,
-		password2: password2
+		username: request.body.username,
+		email: request.body.email,
+		password1: request.body.password1,
+		password2: request.body.password2
 	}
 
 	accountManager.createAccount(accountCredentials, function(error, insertionID) {
 
 		if(0 < error.length) {
 			errors.push(error)
-			console.log(errors)
 			response.render("error.hbs", {errorModel: errors[0]})
 
 		} else {
-			response.render("index.hbs")
+			var model = {
+				id: insertionID
+			}
+			response.render("index.hbs", model)
 		}	
-
 	})	
 })
 
