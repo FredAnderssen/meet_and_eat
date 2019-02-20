@@ -8,25 +8,25 @@ exports.getErrorsNewAccount = function(account){
 	
 	// Validate username.
 	if(!account.hasOwnProperty("username")){
-		errors.push("usernameMissing")
+		errors.push("No username entered")
 	}else if(account.username.length < MIN_USERNAME_LENGTH){
-		errors.push("usernameTooShort")
+		errors.push("Username must contain more than 3 characters")
 	}else if(MAX_USERNAME_LENGTH < account.username.length){
-		errors.push("usernameTooLong")
+		errors.push("Username must contain fewer than 20 characters")
 	}
 
 	if(!account.hasOwnProperty("email")){
-		errors.push("emailMissing")
+		errors.push("No email entered")
 	}else if(!account.email.includes("@")){
-		errors.push("emailDoesntContainAt")
+		errors.push("Email is incorrect")
 	}
 	
 	if(!account.hasOwnProperty("password1")){
-		errors.push("password1Missing")
+		errors.push("No password entered")
 	}else if(!account.hasOwnProperty("password2")){
-		errors.push("password2Missing")
+		errors.push("No password entered")
 	}else if(account.password1 != account.password2){
-		errors.push("passwordsDoesntMatch")
+		errors.push("The two passwords doesn't match")
 	}
 
 	return errors	
