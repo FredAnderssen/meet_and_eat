@@ -50,13 +50,12 @@ router.post('/sign-up', function(request, response) {
 		password2: password2
 	}
 
-
 	accountManager.createAccount(accountCredentials, function(error, insertionID) {
 
 		if(0 < error.length) {
 			errors.push(error)
 			console.log(errors)
-			response.render("error.hbs", {errorModel: errors})
+			response.render("error.hbs", {errorModel: errors[0]})
 
 		} else {
 			response.render("index.hbs")
