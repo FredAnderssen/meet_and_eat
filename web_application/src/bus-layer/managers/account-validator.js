@@ -21,16 +21,12 @@ exports.getErrorsNewAccount = function(account){
 		errors.push("Email is incorrect")
 	}
 	
-	if(account.hasOwnProperty("password1") == null){
+	if(account.password1.length == 0 && account.password2.length == 0){
 		errors.push("No password entered")
-	}
-	
-	if(account.hasOwnProperty("password2") == null){
-		errors.push("No password entered")
-	}
-	
-	if(account.password1 != account.password2){
+	} else if(account.password1 != account.password2){
 		errors.push("The two passwords doesn't match")
+	} else if(account.password1.length < MIN_PASSWORD_LENGTH){
+		errors.push("The password is too short, minimum length is 3 characters")
 	}
 
 	return errors	

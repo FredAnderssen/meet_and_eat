@@ -1,7 +1,20 @@
 {{#if model}}
-        <ul>
-            {{#each model}}
-                    <li>* {{this.this}}</li>
-            {{/each}}
-        </ul>
+
+
+        <section class="hero is-danger">
+                <div class="hero-body">
+                        <div class="container">
+                                <h1 class="title">
+                                        Error!
+                                </h1>
+                                <h2 class="subtitle">
+                                        <ul>
+                                                {{#each model}}
+                                                        <li>* {{this.this}}</li>
+                                                {{/each}}
+                                        </ul>
+                                </h2>
+                        </div>
+                </div>
+        </section>
 {{/if}}
