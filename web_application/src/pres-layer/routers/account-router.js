@@ -32,41 +32,29 @@ router.get('/:username', function(request, response){
 		}
 		response.render("accounts-sign-up.hbs", model)
 	})
-	
 })
 
 router.post('/sign-up', function(request, response) {
-	var username = request.body.username
-	var email = request.body.email
-	var password1 = request.body.password1
-	var password2 = request.body.password2
+
+	var errors = []
+	var messages = []
 	var accountCredentials = {
-		username: username,
-		email: email,
-		password1: password1,
-		password2: password2
+		username: request.body.username,
+		email: request.body.email,
+		password1: request.body.password1,
+		password2: request.body.password2
 	}
 
-	var statusModel = accountManager.createAccount(accountCredentials, function(errors, callback) {
-		
-		var statusMessage
+	accountManager.createAccount(accountCredentials, function(error, insertionID) {
+		if(0 < error.length) {
+			errors.push(error)
+			response.render("error.hbs", {model: errors[0]})
 
-		if(0 < errors.length) {
-			statusMessage = errors
 		} else {
-			statusMessage = callback
-		}
-
-		const model = {
-			statusMessage: statusMessage
-		}
-
-		console.log(statusMessage)
-		return model
-	})
-
-	response.render("accounts-sign-up.hbs", statusModel)
+			messages.push(insertionID)
+			response.render("success.hbs", {model: messages})
+		}	
+	})	
 })
-
 
 module.exports = router
