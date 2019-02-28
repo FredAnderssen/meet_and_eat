@@ -6,10 +6,10 @@ const db = require('./db')
 	Success value: The fetched accounts in an array.
 */
 exports.getAllAccounts = function(callback){
-	
+
 	const query = `SELECT * FROM accounts ORDER BY username`
 	const values = []
-	
+
 	db.query(query, values, function(error, accounts){
 		if(error){
 			callback(['databaseError'], null)
@@ -25,10 +25,9 @@ exports.getAllAccounts = function(callback){
 	Success value: The fetched account, or null if no account has that username.
 */
 exports.getAccountByUsername = function(username, callback){
-	
 	const query = `SELECT * FROM accounts WHERE username = ? LIMIT 1`
 	const values = [username]
-	
+
 	db.query(query, values, function(error, accounts){
 		if(error){
 			callback(['databaseError'], null)
@@ -36,7 +35,7 @@ exports.getAccountByUsername = function(username, callback){
 			callback([], accounts[0])
 		}
 	})
-	
+
 }
 
 /*
@@ -47,10 +46,10 @@ exports.getAccountByUsername = function(username, callback){
 */
 
 exports.createAccount = function(account, callback){
-	
+
 	const query = `INSERT INTO accounts (email, username, password) VALUES (?, ?, ?)`
 	const values = [account.email, account.username, account.password1]
-	
+
 	db.query(query, values, function(error, results){
 		if(error){
 			// TODO: Look for usernameUnique violation.
