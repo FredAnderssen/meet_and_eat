@@ -8,6 +8,15 @@ router.get("/sign-up", function(request, response){
 
 router.get("/sign-in", function(request, response){
 	response.render("accounts-sign-up.hbs")
+
+})
+
+router.post('/sign-in', function(request, response) {
+
+
+	response.render("accounts-sign-up.hbs")
+
+
 })
 
 router.get("/", function(request, response){
@@ -22,9 +31,9 @@ router.get("/", function(request, response){
 })
 
 router.get('/:username', function(request, response){
-	
+
 	const username = request.params.username
-	
+
 	accountManager.getAccountByUsername(username, function(errors, account){
 		const model = {
 			errors: errors,
@@ -36,25 +45,22 @@ router.get('/:username', function(request, response){
 
 router.post('/sign-up', function(request, response) {
 
-	var errors = []
 	var messages = []
 	var accountCredentials = {
 		username: request.body.username,
 		email: request.body.email,
-		password1: request.body.password1,
+		password1: request.body.password1, //TODO hash password
 		password2: request.body.password2
 	}
 
 	accountManager.createAccount(accountCredentials, function(error, insertionID) {
 		if(0 < error.length) {
-			errors.push(error)
-			response.render("error.hbs", {model: errors[0]})
-
+			response.render("error.hbs", {model: error})
 		} else {
 			messages.push(insertionID)
 			response.render("success.hbs", {model: messages})
-		}	
-	})	
+		}
+	})
 })
 
 module.exports = router
