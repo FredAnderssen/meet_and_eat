@@ -16,11 +16,12 @@ exports.createAccount = function(account, callback){
 					account.password1 = hashedPw
 					accountRepository.createAccount(account, function(err, res) {
 						if(err.length <= 0)
-							callback(errors, res)
-						else
+						callback(errors, res)
+						else {
 							console.log(err)
 							errors.push('Database error making account') //TODO skriv om
 							callback(errors, null)
+						}
 					})
 				} else {
 					errors.push('Hash error') //TODO skriv detta till 'Internal server error sen'
@@ -33,4 +34,8 @@ exports.createAccount = function(account, callback){
 
 exports.getAccountByUsername = function(username, callback){
 	accountRepository.getAccountByUsername(username, callback)
+}
+
+exports.comparePwInDb = function(username, password, callback){
+	accountValidator.checkPwWithDb(username, password, callback)
 }

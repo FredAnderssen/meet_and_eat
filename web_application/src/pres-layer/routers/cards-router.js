@@ -3,22 +3,32 @@ const cardsManager = require('../../bus-layer/managers/cards-manager')
 const router = express.Router()
 
 router.get("/", (request, response) => {
+	var isLoggedIn = request.session.isLoggedIn
+	request.session.token = Math.random()
+
+	// Cookies that have not been signed
+	console.log('Cookies: ', request.cookies)
+	// Cookies that have been signed
+	console.log('Signed Cookies: ', request.signedCookies)
+
 	var message = cardsManager.getAllCards((errors, cards) => {
 		console.log(message)
 
 		const model = {
 			cards: cards,
-			errors: errors
+			errors: errors,
+			isLoggedIn: isLoggedIn
 		}
 		response.render("index.hbs", model)
 	})
 })
 
 router.get('/create-card', (request, response) => {
-		response.render('create-card.hbs')
+	response.render('create-card.hbs')
 })
 
 router.post('/create-card', (request, response) => {
+
 	const card = {
 		title: request.body.cardTitle,
 		desc: request.body.cardDesc,

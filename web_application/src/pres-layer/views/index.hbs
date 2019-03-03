@@ -20,6 +20,7 @@
   {{/each}}
 {{/if}}
 
+{{#if isLoggedIn}}
 <!-- loop through all db cards here-->
 <div class="columns is-mobile is-multiline is-2">
   {{#each cards}}
@@ -33,3 +34,4 @@
   </div>
   {{/each}}
 </div>
+{{/if}}
