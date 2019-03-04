@@ -8,6 +8,11 @@
   </div>
 </section>
 
+<section class="section">
+  <div class="container">
+    <h1 class="title">TABS</h1>
+    <h2 class="subtitle">
+
 
 {{#if model}}
   {{#each}}
@@ -20,7 +25,10 @@
   {{#each cards}}
   <div class="column is-4">
     <div class="box">
-      {{cardTitle}}
+      Title: {{cardTitle}} <br />
+      Description:{{cardDesc}} <br />
+      When to meet:{{cardDate}} <br />
+      The author of the card: {{cardAuthor}}
     </div>
   </div>
   {{/each}}
