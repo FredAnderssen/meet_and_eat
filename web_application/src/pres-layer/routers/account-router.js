@@ -7,16 +7,39 @@ router.get("/sign-up", function(request, response){
 })
 
 router.get("/sign-in", function(request, response){
-	response.render("accounts-sign-up.hbs")
-
+	response.render("accounts-sign-in.hbs")	//TODO temporarily View
 })
 
 router.post('/sign-in', function(request, response) {
+	//check if account exists in db if green..
+	//hash pass and compare with hash in db, if green...
+	//request.session.isLoggedIn = true
+	const username = request.body.username
+	const password = request.body.password1
+	console.log("is these guys not strings?", password, username)
 
-
-	response.render("accounts-sign-up.hbs")
-
-
+	accountManager.getAccountByUsername(username, function(errors) {
+		if(0 < errors.length) {
+			console.log("Username does not exist in db") //TODO
+			response.render("error.hbs", {
+				model: errors
+			})
+		} else {
+			//check password1
+			accountManager.comparePwInDb(username, password, function(errors) {
+				if(0 < errors.length) {
+					//do something
+					console.log("checkPwWithDb Failed")
+					response.render("error.hbs", {
+						model: errors
+					})
+				}	else {
+					request.session.isLoggedIn = true
+					response.render("success.hbs")
+				}
+			})
+		}
+	})
 })
 
 router.get("/", function(request, response){
@@ -58,6 +81,7 @@ router.post('/sign-up', function(request, response) {
 			response.render("error.hbs", {model: error})
 		} else {
 			messages.push(insertionID)
+			request.session.isLoggedIn = true
 			response.render("success.hbs", {model: messages})
 		}
 	})

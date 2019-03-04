@@ -4,7 +4,7 @@ CREATE TABLE accounts (
 	accountId INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	email VARCHAR(30) NOT NULL,
 	username VARCHAR(50) NOT NULL,
-	password VARCHAR(30) NOT NULL,
+	password VARCHAR(255) NOT NULL,
 	CONSTRAINT usernameUnique UNIQUE (username)
 );
 
@@ -20,7 +20,10 @@ CREATE TABLE cards (
 
 CREATE TABLE comments (
 	commentId INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	comment VARCHAR(150) NOT NULL
+	comment VARCHAR(150) NOT NULL,
+	idAccFK INT UNSIGNED,
+	FOREIGN KEY (idAccFK) REFERENCES accounts(accountId),
+	CONSTRAINT commentUnique UNIQUE (comment)
 );
 
 -- Create a dummy account for testing.
