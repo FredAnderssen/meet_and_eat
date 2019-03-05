@@ -1,5 +1,12 @@
 version: '3'
 services:
+  # Add this top-level entry
+  redis:
+    image: redis
+    container_name: cache
+    expose:
+      - 6379
+
   "web_application":
     build: "./web_application"
     ports:
@@ -9,6 +16,12 @@ services:
         - "./web_application/src:/web_application/src"
     depends_on:
       - database
+    # some definitions
+    links:
+      - redis
+    environment:
+      - REDIS_URL=redis://cache
+        # rest of the environment definitions
   database:
     build: ./database
     ports:
