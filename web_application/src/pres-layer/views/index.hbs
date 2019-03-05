@@ -26,14 +26,20 @@
   {{#each cards}}
   <div class="column is-4">
     <div class="box">
-      Title: {{cardTitle}} <br />
-      Description:{{cardDesc}} <br />
-      When to meet:{{cardDate}} <br />
-      The author of the card: {{cardAuthor}} <br \>
-    </div>
-    <input class="input" type="text" placeholder="Add comment" id="cardComment">
+      <h1><b>{{cardTitle}}</b></h1> <br>
+      <h2>{{cardDesc}}</h2> <br>
+      <h3>When: {{cardDate}}</h3><br>
+      <h4>Author: {{cardAuthor}}</h4><br>
+      <form method="GET" action="/open-card/{{cardId}}">
+        <input class="button is-rounded is-info is-small" type="submit" value="Open card">
+      </form>
 
+    </div>
   </div>
   {{/each}}
 </div>
 {{/if}}
+
+<form method="GET" action="/create-card">
+        <input class="button is-rounded is-info is-small" type="submit" value="Create card">
+      </form>

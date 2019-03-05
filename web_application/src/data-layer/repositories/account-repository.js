@@ -29,6 +29,7 @@ exports.getAccountByUsername = function(username, callback){
 	const values = [username]
 
 	db.query(query, values, function(error, accounts){
+		console.log("try me, bitch: ", error)
 		if(error){
 			callback(['databaseError'], null)
 		}else{

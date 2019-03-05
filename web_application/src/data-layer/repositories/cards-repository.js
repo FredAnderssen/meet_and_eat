@@ -12,6 +12,26 @@ exports.getAllCards = (callback) => {
   })
 }
 
+exports.getCardById = (id, callback) => {
+  const query = "SELECT * FROM cards WHERE cardId = ? LIMIT 1"
+  const values = [id]
+
+  db.query(query, values, function(error, card) {
+    console.log("q, v, e, c ", query, values, error, card[0])
+    
+    if(error) {
+      callback(['error in database'], null)
+    } else {
+      callback([], card[0])
+    }
+  })
+}
+
+exports.getID = (callback) => {
+  const query = 'SELECT cardId FROM cards WHERE '
+
+}
+
 exports.createCard = (card, callback) => {
   console.log('I am directly in repository')
   const query = 'INSERT INTO cards (cardTitle, cardDesc, cardDate, idAccountFK) \
