@@ -9,3 +9,9 @@ exports.hashPassword = function(pass, callback) {
     callback(err, hashedPassword)
   })
 }
+
+exports.comparePwWithHash = (pw, hash, callback) => {
+  bcrypt.compare(pw, hash, function(err, res) {
+    callback(err, res)
+  }
+)}

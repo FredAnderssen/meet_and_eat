@@ -19,7 +19,7 @@ exports.createAccount = function(account, callback){
 						callback(errors, res)
 						else {
 							console.log(err)
-							errors.push('Database error making account') //TODO skriv om
+							errors.push('Database error making account') //TODO skriv om felmeddelande
 							callback(errors, null)
 						}
 					})
@@ -36,6 +36,16 @@ exports.getAccountByUsername = function(username, callback){
 	accountRepository.getAccountByUsername(username, callback)
 }
 
+exports.checkIfUserExists = (username, callback) => {
+	accountRepository.checkIfUserExists(username, callback)
+}
+
 exports.comparePwInDb = function(username, password, callback){
 	accountValidator.checkPwWithDb(username, password, callback)
+}
+
+exports.getHashFromDbAccount = (username, callback) => {
+	accountRepository.getHashOnAccount(username, function(error, hashedPw) {
+		callback(error, hashedPw)
+	})
 }
