@@ -19,6 +19,23 @@
 
       <div class="navbar-item has-dropdown is-hoverable">
         <a class="navbar-link">
+          Sign In
+        </a>
+
+        <div class="navbar-dropdown">
+          <a class="navbar-item">
+
+                <form action="/accounts/sign-in" method="POST" id="signInAccountForm" name="signInAccForm">
+                  <div>Your Username: <input type="text" name="username" id="username"></div>
+                  <div>Your Password: <input type="password" name="password1" id="password1"></div>
+                  <input type="submit" value="Sign in">
+                </form>
+          </a>
+        </div>
+      </div>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
           Sign Up
         </a>
 

@@ -12,13 +12,33 @@ exports.getAllCards = (callback) => {
   })
 }
 
+exports.getCommentsById = (id, callback) => {
+
+  const query = "SELECT * FROM comments WHERE idAccFK = ? ORDER BY commentId DESC"
+  const values = [id]
+
+  db.query(query, values, function(error, comments) {
+
+    var commentArray = []
+
+    if(error) {
+      callback(['error in database'], null)
+
+    }else {
+      
+      for(i = 0; i < comments.length; ++i) {
+        commentArray.push(comments[i].comment)
+      }
+      callback([], commentArray)
+    }
+  })
+}
+
 exports.getCardById = (id, callback) => {
   const query = "SELECT * FROM cards WHERE cardId = ? LIMIT 1"
   const values = [id]
 
-  db.query(query, values, function(error, card) {
-    console.log("q, v, e, c ", query, values, error, card[0])
-    
+  db.query(query, values, function(error, card) {    
     if(error) {
       callback(['error in database'], null)
     } else {
@@ -33,20 +53,37 @@ exports.getID = (callback) => {
 }
 
 exports.createCard = (card, callback) => {
-  console.log('I am directly in repository')
   const query = 'INSERT INTO cards (cardTitle, cardDesc, cardDate, idAccountFK) \
   VALUES (?, ?, ?, (SELECT accountId FROM accounts WHERE username = ?))'
 
   const values = [card.title, card.desc, card.date, card.author]
+  console.log("Create card: " + values)
+  db.query(query, values, (error, results) => {
+    if(error) {
+      console.log("CREATE CARD ERROR + " + error.message)
+      callback(['databaseError'], null)
+    } else {
+      console.log("RESULT INSERTID" + results.insertId)
+      callback([], results.insertId)
+    }
+  })
+}
+
+exports.createComment = (comment, callback) => {
+  const query = "INSERT INTO comments (comment, idAccFk) \
+  VALUES (?, ?)"
+
+  const values = [comment.comment, comment.id]
 
   db.query(query, values, (error, results) => {
-    if(error)
-    callback(['databaseError'], null)
-    else
-    callback([], results.insertId)
+    if(error){
+      callback(['databaseError'], null)
+    } else {
+      callback([], results.insertId)
+    }
   })
-  console.log('I am in the end repository')
 }
+
 
 /*
 INSERT INTO cards (cardTitle, cardDesc, cardDate, idAccountFK) \
