@@ -16,8 +16,6 @@ router.get("/", (request, response) => {
 	console.log('Signed Cookies: ', request.signedCookies)
 
 	var message = cardsManager.getAllCards((errors, cards, comments) => {
-		console.log(message)
-
 		const model = {
 			cards: cards,
 			comments: comments,
@@ -29,22 +27,24 @@ router.get("/", (request, response) => {
 })
 
 router.get("/open-card/:id", (request, response) => {
-	console.log("open card id")
+
 	cardsManager.getSpecificCardById(request.params.id, (errors, card) => {
-		console.log("INSIDE cardsManager.getSpecificCardById")
+		var id = request.params.id
 		
 		if(errors.length > 0) {
-		//handle error
-		console.log(errors)
-		response.render("error.hbs")
+			response.render("error.hbs")
 		}
 		else {
-			const model = {
-				id: request.params.id,
-				isLoggedIn: request.body.isLoggedIn,
-				card: card
-			}
-			response.render("open-card.hbs", model)
+
+			var message = cardsManager.getCommentsById(id, (errors, comments) => {
+				console.log(comments)
+				const model = {
+					id: id,
+					card: card,
+					comments: comments
+				}
+				response.render("open-card.hbs", model)
+			})
 		}
 	})
 }) 
@@ -64,10 +64,20 @@ router.post('/create-card', (request, response) => {
 	}
 
 	cardsManager.createNewCard(card, (errors, callback) => {
-		console.log('I am in createCard Router func')
+		response.redirect('/')
+	})
+})
+
+router.post('/create-comment/:id', (request, response) => {
+
+	const comment = {
+		comment: request.body.commentText,
+		id: request.params.id
+	}
+	cardsManager.addComment(comment, (errors, callback) => {
 	})
 
-	response.redirect('/')
+	response.redirect("../open-card/" + [comment.id])
 })
 
 module.exports = router
