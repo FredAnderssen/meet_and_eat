@@ -1,11 +1,10 @@
 {
   "name": "meatandeat",
   "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon src/app.js"
+    "start": "nodemon --inspect=0.0.0.0 src/pres-layer/app.js -L"
   },
   "repository": {
     "type": "git",
@@ -19,7 +18,17 @@
   },
   "homepage": "https://github.com/FredAnderssen/meet_and_eat#readme",
   "dependencies": {
+    "bcrypt": "^3.0.4",
+    "body-parser": "^1.18.3",
+    "connect-redis": "^3.4.0",
+    "cookie-parser": "^1.4.4",
     "express": "^4.16.4",
-    "nodemon": "^1.18.9"
-  }
+    "express-handlebars": "^3.0.0",
+    "express-mysql-session": "^2.1.0",
+    "express-session": "^1.15.6",
+    "mysql": "^2.16.0",
+    "nodemon": "^1.18.9",
+    "redis": "^2.8.0"
+  },
+  "description": ""
 }

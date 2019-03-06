@@ -1,0 +1,66 @@
+<div class="column is-4">
+            <div class="card is-shady">
+              <div class="card-image">
+                <figure class="image is-4by3">
+                  <img src="https://via.placeholder.com/1080x720" alt="butterfly image" class="modal-button" data-target="modal-image4">
+                </figure>
+              </div>
+              <div class="card-content  modal-button" data-target="modal-card2">
+                <div class="content">
+                  <h4>{{cardTitle}}</h4>
+                  {{cardDesc}} <br />
+                  {{cardDate}} <br />
+                  {{cardAuthor}}
+                  <span class="button is-link modal-button">Open card</span>
+                </div>
+              </div>
+            </div>
+            <div id="modal-card2" class="modal modal-fx-3dSlit">
+      <div class="modal-background"></div>
+      <div class="modal-content is-tiny">
+        <!-- content -->
+        <div class="card">
+          <div class="card-image">
+            <figure class="image is-4by3">
+              <img src="https://via.placeholder.com/1080x720" alt="butterfly">
+            </figure>
+          </div>
+          <div class="card-content">
+            <div class="media">
+              <div class="media-left">
+                <figure class="image is-48x48">
+                  <img src="https://via.placeholder.com/90" alt="{{cardAuthor}} avatar">
+                </figure>
+              </div>
+              <div class="media-content">
+                <p class="title is-4">{{cardTitle}}</p>
+                <p class="subtitle is-6">@{{cardAuthor}}</p>
+              </div>
+            </div>
+            <div class="content">
+              {{cardDesc}}
+              <br>
+              <time datetime="2018-02-02">{{cardDate}}</time>
+            </div>
+          </div>
+        </div>
+        <!-- end content -->
+      </div>
+      <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+    <!-- end tiny modal card -->
+
+    <!-- When you click on the image of the card -->
+    <div id="modal-image4" class="modal modal-fx-3dSlit">
+      <div class="modal-background"></div>
+      <div class="modal-content is-huge is-image">
+        <!-- content -->
+        <img src="https://via.placeholder.com/1080x720" alt="placeholder">
+        <!-- end content -->
+      </div>
+      <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+      </div>
+
+
+      

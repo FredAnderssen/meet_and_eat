@@ -1,0 +1,64 @@
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      <img src="https://banner2.kisspng.com/20180404/syq/kisspng-fizzy-drinks-computer-icons-meal-food-lunch-food-icon-5ac500dc6676c0.3955393615228602524197.jpg" width="40" height="102">
+    </a>
+
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item" href="/">
+        Home
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Sign In
+        </a>
+
+        <div class="navbar-dropdown">
+          <a class="navbar-item">
+
+                <form action="/accounts/sign-in" method="POST" id="signInAccountForm" name="signInAccForm">
+                  <div>Your Username: <input type="text" name="username" id="username"></div>
+                  <div>Your Password: <input type="password" name="password1" id="password1"></div>
+                  <input type="submit" value="Sign in">
+                </form>
+          </a>
+        </div>
+      </div>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Sign Up
+        </a>
+
+        <div class="navbar-dropdown">
+          <a class="navbar-item">
+
+            <form action="/accounts/sign-up" method="POST" id="createAccountForm" name="createAccForm">
+
+                    <div>Username: <input type="text" name="username" id="username"></div>
+
+                    <div>Email: <input type="text" name="email" id="email"></div>
+
+                    <div>Password: <input type="password" name="password1" id="password1"></div>
+
+                    <div>Password (repeat): <input type="password" name="password2" id="password2"></div>
+
+                    <input type="submit" value="Create account">
+
+              </form>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</nav>
