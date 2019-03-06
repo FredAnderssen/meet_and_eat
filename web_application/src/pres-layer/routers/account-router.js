@@ -27,7 +27,7 @@ module.exports = function({accountManager}) {
 					model: errors
 				})
 			} else {
-				accountManager.comparePwInDb(username, password, function(errors) {
+				accountManager.checkPwWithDb(username, password, function(errors) {
 					if(0 < errors.length) {
 						console.log("checkPwWithDb Failed")
 						response.render("error.hbs", {
@@ -43,27 +43,6 @@ module.exports = function({accountManager}) {
 		})
 	})
 
-    accountManager.checkIfUserExists(username, function(errors) {
-      console.log("HITTA MIG", errors)
-      if(0 < errors.length) {
-        console.log("Username does not exist in db") //TODO
-        response.render("error.hbs", {
-          model: errors
-        })
-      } else {
-        accountManager.checkPwWithDb(username, password, function(errors) {
-          if(0 < errors.length) {
-            console.log("checkPwWithDb Failed") //TODO
-            response.render("error.hbs", {
-              model: errors
-            })
-          }	else {
-            request.session.isLoggedIn = true
-            response.render("success.hbs")
-          }
-        })
-      }
-    })
 
 
   router.get("/", function(request, response){
