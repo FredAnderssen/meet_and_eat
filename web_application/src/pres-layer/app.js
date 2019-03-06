@@ -5,43 +5,69 @@ const path = require('path')
 const cookieParser = require('cookie-parser')
 var mysql = require('mysql');
 
-const accountRouter = require('./routers/account-router')
-const cardsRouter = require('./routers/cards-router')
-const app = express()
+//const accountRouter = require('./routers/account-router')
+//const cardsRouter = require('./routers/cards-router')
+//const setupRouters = require('./routers/account-router')
 
-app.set('views', path.join(__dirname, 'views'))
+function createServer() {
+  const router = express.Router()
 
-app.engine('hbs', expressHandlebars({
-  defaultLayout: 'main',
-  extname: 'hbs',
-  layoutsDir: path.join(__dirname, 'layouts'),
-  partialsDir: path.join(__dirname, 'views', 'partials')
-}))
+  const app = express()
 
-app.use(bodyParser.urlencoded({extended: false}))
-app.use(express.static('public_html'))
+  //create DI container--?
+  const awilix = require('awilix')
+  const accountRouter = require('./routers/account-router')
+  const accountRepository = require('../data-layer/repositories/account-repository')
+  const accountManager = require('../bus-layer/managers/account-manager')
+  const accountValidator = require('../bus-layer/managers/account-validator')
+  const crypt = require('../bus-layer/utilities/crypt')
 
-//** Redis **//
-var session = require('express-session');
-var RedisStore = require('connect-redis')(session);
-const options = {
-	host: 'redis',
-	port: 6379
+  const container = awilix.createContainer()
+
+  container.register('accountRouter', awilix.asFunction(accountRouter))
+  container.register("accountRepository", awilix.asFunction(accountRepository))
+  container.register("accountManager", awilix.asFunction(accountManager))
+  container.register("accountValidator", awilix.asFunction(accountValidator))
+  container.register("crypt", awilix.asFunction(crypt))
+
+  const theAccountRouter = container.resolve('accountRouter')
+  //----------------------
+
+  app.set('views', path.join(__dirname, 'views'))
+  app.engine('hbs', expressHandlebars({
+    defaultLayout: 'main',
+    extname: 'hbs',
+    layoutsDir: path.join(__dirname, 'layouts'),
+    partialsDir: path.join(__dirname, 'views', 'partials')
+  }))
+
+  app.use(bodyParser.urlencoded({extended: false}))
+  app.use(express.static('public_html'))
+
+  //** Redis **//
+  var session = require('express-session');
+  var RedisStore = require('connect-redis')(session);
+  const options = {
+  	host: 'redis',
+  	port: 6379
+  }
+  app.use(session({
+      store: new RedisStore(options),
+      secret: 'keyboard cat',
+      resave: false
+  }));
+  //****************************//
+
+  app.use(cookieParser())
+
+  // Attach all routers.
+  app.use('/accounts', theAccountRouter)
+  //app.use('/', cardsRouter)
+
+  //setupRouters.setupRoutes(router)
+  return app
 }
-app.use(session({
-    store: new RedisStore(options),
-    secret: 'keyboard cat',
-    resave: false
-}));
-//****************************//
-
-app.use(cookieParser())
-
-// Attach all routers.
-app.use('/accounts', accountRouter)
-app.use('/', cardsRouter)
 
 
-app.listen(8080, function() {
-    console.log("Listening to 3000")
-})
+//ta bort denna
+createServer().listen(8080, () => console.log('Good to go on 3000!'))

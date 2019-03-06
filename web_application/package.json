@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/FredAnderssen/meet_and_eat#readme",
   "dependencies": {
+    "awilix": "^4.2.0",
     "bcrypt": "^3.0.4",
     "body-parser": "^1.18.3",
     "connect-redis": "^3.4.0",
