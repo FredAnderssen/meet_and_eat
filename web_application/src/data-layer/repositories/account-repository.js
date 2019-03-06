@@ -28,6 +28,7 @@ exports.getAccountByUsername = function(username, callback){
 	const query = `SELECT * FROM accounts WHERE username = ? LIMIT 1`
 	const values = [username]
 	db.query(query, values, function(error, accounts){
+		console.log("try me, bitch: ", error)
 		if(error){
 			callback(['databaseError'], null)
 		}else{

@@ -14,6 +14,9 @@ router.post('/sign-in', function(request, response) {
 	const username = request.body.username
 	const password = request.body.password1
 
+	console.log("is these guys not strings?", password, username)
+
+
 	accountManager.checkIfUserExists(username, function(errors) {
 		console.log("HITTA MIG", errors)
 		if(0 < errors.length) {
@@ -30,6 +33,7 @@ router.post('/sign-in', function(request, response) {
 					})
 				}	else {
 					request.session.isLoggedIn = true
+					request.session.username = username
 					response.render("success.hbs")
 				}
 			})
