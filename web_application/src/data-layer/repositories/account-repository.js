@@ -27,7 +27,6 @@ Success value: The fetched account, or null if no account has that username.
 exports.getAccountByUsername = function(username, callback){
 	const query = `SELECT * FROM accounts WHERE username = ? LIMIT 1`
 	const values = [username]
-
 	db.query(query, values, function(error, accounts){
 		console.log("try me, bitch: ", error)
 		if(error){
@@ -36,7 +35,26 @@ exports.getAccountByUsername = function(username, callback){
 			callback([], accounts[0])
 		}
 	})
+}
 
+exports.checkIfUserExists = (username, callback) => {
+	const query = 'SELECT EXISTS(SELECT * FROM accounts WHERE username = ?) AS resKey'
+	const values = [username]
+	db.query(query, values, function(error, res){
+		let resBool = res[0].resKey
+
+		if(error){
+			callback(['databaseError'])
+		}else{
+			if(resBool) {
+				//returns 1 username exists
+				callback([])
+			}	else {
+				//returns 0 does not exist
+				callback(['database Error, User does not exists'])
+			}
+		}
+	})
 }
 
 /*
@@ -52,6 +70,7 @@ exports.createAccount = function(account, callback){
 	const values = [account.email, account.username, account.password1]
 
 	db.query(query, values, function(error, results){
+		console.log("error in createAccount:",error)
 		if(error){
 			// TODO: Look for usernameUnique violation.
 			callback(['databaseError', error.message], null)
@@ -67,10 +86,8 @@ exports.getHashOnAccount = (username, callback) => {
 
 	db.query(query, values, (error, hash) => {
 		if(error) {
-			console.log("in if error",hash)
 			callback(['databaseError'], null)
 		}	else {
-			console.log("in if it went good", hash)
 			callback([], hash)
 		}
 	})
