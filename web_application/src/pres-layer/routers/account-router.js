@@ -16,6 +16,32 @@ module.exports = function({accountManager}) {
   router.post('/sign-in', function(request, response) {
     const username = request.body.username
     const password = request.body.password1
+	console.log("is these guys not strings?", password, username)
+
+
+		accountManager.checkIfUserExists(username, function(errors) {
+			console.log("HITTA MIG", errors)
+			if(0 < errors.length) {
+				console.log("Username does not exist in db") //TODO
+				response.render("error.hbs", {
+					model: errors
+				})
+			} else {
+				accountManager.comparePwInDb(username, password, function(errors) {
+					if(0 < errors.length) {
+						console.log("checkPwWithDb Failed")
+						response.render("error.hbs", {
+							model: errors
+						})
+					}	else {
+						request.session.isLoggedIn = true
+						request.session.username = username
+						response.render("success.hbs")
+					}
+				})
+			}
+		})
+	})
 
     accountManager.checkIfUserExists(username, function(errors) {
       console.log("HITTA MIG", errors)
@@ -38,7 +64,7 @@ module.exports = function({accountManager}) {
         })
       }
     })
-  })
+
 
   router.get("/", function(request, response){
     accountManager.getAllAccounts(function(errors, accounts){

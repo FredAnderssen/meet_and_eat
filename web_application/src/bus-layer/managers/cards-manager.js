@@ -5,6 +5,21 @@ exports.getAllCards = callback => {
 }
 
 exports.createNewCard = (cardObj, callback) => {
-  console.log('I am in Manager')
   cardsRepository.createCard(cardObj, callback)
+}
+
+exports.getCardID = callback => {
+  cardsRepository.getID(callback)
+}
+
+exports.getSpecificCardById = (id, callback) => {
+  cardsRepository.getCardById(id, callback)
+}
+
+exports.getCommentsById = (id, callback) => {
+  cardsRepository.getCommentsById(id, callback)
+}
+
+exports.addComment = (comment, id, callback) => {
+  cardsRepository.createComment(comment, id, callback)
 }
