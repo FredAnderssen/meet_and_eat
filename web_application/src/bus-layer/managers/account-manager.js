@@ -1,4 +1,3 @@
-
 module.exports = function({accountRepository, accountValidator, crypt}) {
 	return {
 		getAllAccounts: function(callback){

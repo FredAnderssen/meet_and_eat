@@ -1,25 +1,28 @@
-const cardsRepository = require('../../data-layer/repositories/cards-repository')
+module.exports = ({cardsRepository}) => {
+  return {
 
-exports.getAllCards = callback => {
-  cardsRepository.getAllCards(callback)
-}
+    getAllCards: (callback) => {
+      cardsRepository.getAllCards(callback)
+    },
 
-exports.createNewCard = (cardObj, callback) => {
-  cardsRepository.createCard(cardObj, callback)
-}
+    createNewCard: (cardObj, callback) => {
+      cardsRepository.createCard(cardObj, callback)
+    },
 
-exports.getCardID = callback => {
-  cardsRepository.getID(callback)
-}
-
-exports.getSpecificCardById = (id, callback) => {
-  cardsRepository.getCardById(id, callback)
-}
-
-exports.getCommentsById = (id, callback) => {
-  cardsRepository.getCommentsById(id, callback)
-}
-
-exports.addComment = (comment, id, callback) => {
-  cardsRepository.createComment(comment, id, callback)
+    getCardID: callback => {
+      cardsRepository.getID(callback)
+    },
+    
+    getSpecificCardById: (id, callback) => {
+      cardsRepository.getCardById(id, callback)
+    },
+    
+    getCommentsById: (id, callback) => {
+      cardsRepository.getCommentsById(id, callback)
+    },
+    
+    addComment: (comment, id, callback) => {
+      cardsRepository.createComment(comment, id, callback)
+    }
+  }
 }

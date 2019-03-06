@@ -1,5 +1,4 @@
 const express = require('express')
-//const accountManager = require('../../bus-layer/managers/account-manager')
 
 module.exports = function({accountManager}) {
   const router = express.Router()

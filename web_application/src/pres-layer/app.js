@@ -22,15 +22,27 @@ function createServer() {
   const accountValidator = require('../bus-layer/managers/account-validator')
   const crypt = require('../bus-layer/utilities/crypt')
 
+  const cardsRouter = require('./routers/cards-router')
+  const cardsRepository = require('../data-layer/repositories/cards-repository')
+  const cardsManager = require('../bus-layer/managers/cards-manager')
+
   const container = awilix.createContainer()
 
   container.register('accountRouter', awilix.asFunction(accountRouter))
   container.register("accountRepository", awilix.asFunction(accountRepository))
   container.register("accountManager", awilix.asFunction(accountManager))
   container.register("accountValidator", awilix.asFunction(accountValidator))
+
   container.register("crypt", awilix.asFunction(crypt))
 
+  container.register('cardsRouter', awilix.asFunction(cardsRouter))
+  container.register('cardsRepository', awilix.asFunction(cardsRepository))
+  container.register('cardsManager', awilix.asFunction(cardsManager))
+
+
   const theAccountRouter = container.resolve('accountRouter')
+  const theCardsRouter = container.resolve('cardsRouter')
+  
   //----------------------
 
   app.set('views', path.join(__dirname, 'views'))
@@ -62,7 +74,7 @@ function createServer() {
 
   // Attach all routers.
   app.use('/accounts', theAccountRouter)
-  //app.use('/', cardsRouter)
+  app.use('/', theCardsRouter)
 
   //setupRouters.setupRoutes(router)
   return app
