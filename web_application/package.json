@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --inspect=0.0.0.0 src/pres-layer/app.js -L"
+    "start": "nodemon --inspect=0.0.0.0 src/pres-layer/main.js -L"
   },
   "repository": {
     "type": "git",
@@ -27,6 +27,7 @@
     "express-handlebars": "^3.0.0",
     "express-mysql-session": "^2.1.0",
     "express-session": "^1.15.6",
+    "jsonwebtoken": "^8.5.0",
     "mysql": "^2.16.0",
     "nodemon": "^1.18.9",
     "redis": "^2.8.0"

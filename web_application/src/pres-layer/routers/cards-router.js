@@ -31,7 +31,7 @@ module.exports = ({cardsManager}) => {
 
 		cardsManager.getSpecificCardById(request.params.id, (errors, card) => {
 			var id = request.params.id
-			
+
 			if(errors.length > 0) {
 				response.render("error.hbs")
 			}
@@ -48,7 +48,7 @@ module.exports = ({cardsManager}) => {
 				})
 			}
 		})
-	}) 
+	})
 
 
 	router.get('/create-card', (request, response) => {
@@ -64,7 +64,7 @@ module.exports = ({cardsManager}) => {
 			author: request.body.cardAuthor //TODO automatic username from account
 		}
 
-		cardsManager.createNewCard(card, (errors, callback) => {
+		cardsManager.createNewCard(card, (errors, results) => {
 			response.redirect('/')
 		})
 	})
@@ -76,6 +76,7 @@ module.exports = ({cardsManager}) => {
 			id: request.params.id
 		}
 		cardsManager.addComment(comment, (errors, callback) => {
+
 		})
 
 		response.redirect("../open-card/" + [comment.id])
@@ -85,6 +86,3 @@ module.exports = ({cardsManager}) => {
 
 	return router
 }
-
-
-
