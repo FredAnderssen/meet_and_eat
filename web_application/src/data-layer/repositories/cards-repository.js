@@ -83,15 +83,15 @@ module.exports = function({}) {
       })
     },
 
-    deleteCard: (cardId, callback) => {
-      const query = 'DELETE FROM cards WHERE cardId = ?'
-      const values = [cardId]
+    deleteCard: function(cardId, accId, callback) { 
+      const query = 'DELETE FROM cards WHERE cardId = ? AND idAccountFK = ?'
+      const values = [cardId, accId]
 
-      db.query(query, values, (err) => {
+      db.query(query, values, function(err, idAccountFK) {
         if(err) {
-          callback(['databaseError deleting card'])
+          callback(['databaseError deleting card', err], idAccountFK)
         } else {
-          callback([])
+          callback([], idAccountFK)
         }
       })
     },
@@ -117,15 +117,19 @@ module.exports = function({}) {
 			})
 		},
 
-    updateCard: (cardId, cardObj, callback) => {
-      const query = 'UPDATE cards SET cardTitle = ?, cardDesc = ?, cardDate = ?, idAccountFK = (SELECT accountId FROM accounts WHERE username = ?) WHERE cardId = ?'
-      const values = [cardObj.title, cardObj.desc, cardObj.date, cardObj.author, cardId]
+    updateCard: (cardId, cardObj, accountId, callback) => {
+      console.log("cardobj.author ::", cardObj.author)
+      console.log(cardId, cardObj, accountId)
 
-      db.query(query, values, (error) => {
+      const query = 'UPDATE cards SET cardTitle = ?, cardDesc = ?, cardDate = ?, idAccountFK = (SELECT accountId FROM accounts WHERE username = ?) WHERE cardId = ? AND idAccountFK = ?'
+      const values = [cardObj.title, cardObj.desc, cardObj.date, cardObj.author, cardId, accountId]
+
+      db.query(query, values, (error, results) => {
+        console.log("results in datalayer:", results)
         if(error)
-          callback(['database error updating card'])
+          callback(['database error updating card', error], results)
         else
-          callback([])
+          callback([], results)
       })
     }
 

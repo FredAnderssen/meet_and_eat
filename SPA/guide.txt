@@ -1,0 +1,7 @@
+SPA/ingine/
+
+ingine dockerfile
+one html file, rest js
+
+-ports
+  3001:80

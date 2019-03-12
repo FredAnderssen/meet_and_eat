@@ -1,5 +1,4 @@
 -- Create a table to store user accounts in.
-
 CREATE TABLE accounts (
 	accountId INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	email VARCHAR(30) NOT NULL,

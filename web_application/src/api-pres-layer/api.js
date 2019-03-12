@@ -3,32 +3,42 @@
 //2. hur vet systemet om clienten ska använda /mobie eller /desktop ? de som är på pc ska ju inte lyckas komma in i /mobileApp
 //3. updatedcard vad händer?
 //4. OAuth2.0 med jwt tokens, fattar nada?
-//5. ska vi göra det snyggt med responsen i json?
+//5. ska vi göra det snyggt med responsen i json? Ja sen i SPA
 module.exports = function({accountManager, cardsManager}) {
   const app = require('express')();
   const bodyParser = require('body-parser')
-  const jwt = require('jsonwebtoken')//kan tydligen inte hitta paketet
+  const jwt = require('jsonwebtoken')
   const jwtSecret = "adjfghafjgdhjk"
 
   app.use(bodyParser.json())
+  app.use(bodyParser.urlencoded({extended: false}))
+
   app.use((request, response, next) => {
+
+
     try {
       const authHeader = request.get("Authorization")
-      const accessTokenString = authHeader.substr("Bearer ".length)
+      console.log(authHeader)
+
+      const accessTokenString = authHeader //varför vill peter ha från rad 7 i strängen?
+      console.log("accessTokenString:",accessTokenString)
       request.payload = jwt.verify(accessTokenString, jwtSecret)
+      console.log("req.payload:",request.payload)
 
     } catch(e) {
       //..access token missing or invalid
+      console.log("IN THE CATCH; token missing or invalid")
     }
-
     next()
   })
 
+  //loggar in här och får tilldelat två tokens
   app.post('/tokens', (request, response) => {
     const grant_type = request.body.grant_type
     const username = request.body.username
     const password = request.body.password
 
+    console.log(request.body)
     if(grant_type != "password"){
       response.status(400).json({error: "unsupported_grant_type"})
       return
@@ -44,100 +54,162 @@ module.exports = function({accountManager, cardsManager}) {
               error: "invalid_client"
             })
           } else {
-            const accessToken = jwt.sign({accountId: account.id}, jwtSecret)
-            const idToken = jwt.sign({
-              sub: account.id,
+            console.log("acount id here: ", account.accountId)
+            console.log("acount´HERE ", account)
+
+
+            const accessToken = jwt.sign({accountId: account.accountId, username: account.username}, jwtSecret) //skicaks tillbaka sen
+            const idToken = jwt.sign({ //bara för att vi ska veta vem klienten är
+              sub: account.accountId,
               preferred_username: account.username}, "anotha secret LOLOL")
 
-            console.log("TOKENS HERE: ",accessToken, idToken)
-            response.status(200).json({access_token: accessToken, id_token: idToken})
-          }
-        })
-      }
+              console.log("TOKENS HERE: ", accessToken, idToken)
+
+              var decoded = jwt.decode(accessToken);
+              console.log(decoded.header);
+              console.log(decoded.payload)
+              console.log("PAYLOAD:", accessToken.payload)
+              console.log("idTOken PAYLOAD:", idToken.payload)
+
+              response.status(200).json({access_token: accessToken, id_token: idToken})
+            }
+          })
+        }
+      })
     })
-  })
 
-  app.get('/', function(request, response){
-    response.status(200).json("Mobile Route")
-  });
+    app.get('/', function(request, response){
+      response.status(200).json("API Route")
+    });
 
-  app.get("/cards", (request, response) => { //TODO auth
-    cardsManager.getAllCards((errors, cards, comments) => {
-      const model = {
-        cards: cards,
-        comments: comments,
-        errors: errors
-      }
-      response.status(200).json(model)
-    })
-  })
+    app.get("/cards", (request, response) => { //TODO auth
 
-  app.post('/create-card', (request, response) => { //TODO auth
-    const card = {
-      title: request.body.cardTitle,
-      desc: request.body.cardDesc,
-      date: request.body.cardDate, //TODO autmatic date
-      author: request.body.cardAuthor //TODO automatic username from account
-    }
-    const newCard = request.body
-    console.log("request.body:",newCard)
-
-    cardsManager.createNewCard(card, (errors, results) => {
-      //TODO check request.payload
-      if(0 < errors.length){
-        response.status(400).json(errors)
+      console.log("PAYLOAD HERE:", request.payload)
+      if(!request.payload){
+        response.status(401).end()
         return
       }
 
-      response.setHeader("Location", "/cards/"+results)
-      response.status(200).end()
+      cardsManager.getAllCards((errors, cards, comments) => {
+        const model = {
+          cards: cards,
+          comments: comments,
+          errors: errors
+        }
+        response.status(200).json(model)
+      })
     })
-  })
 
-  app.put('/update-card/:id', (request, response) => { //TODO förstår inte updatedCard
-    const id = parseInt(request.params.id)
-    const updatedCard = request.body
-    const card = {
-      title: request.body.cardTitle,
-      desc: request.body.cardDesc,
-      date: request.body.cardDate, //TODO autmatic date
-      author: request.body.cardAuthor //TODO automatic username from account
-    }
+    //TODO så man inte kan skapa kort åt någon annan, kan inte göra et nu? :D
+    app.post('/card', (request, response) => { //TODO auth
+      const accountUsername = request.payload.username
 
-    cardsManager.checkIfCardExists(id, (errorArr) => { //kolla i felmeddelandet
-      if(errorArr.length < 1) {
-        cardsManager.updateCard(id, card, (errors) => {
-          if(errors.length < 1) {
-            response.status(204).end()
-            console.log("succeded updating card")
-          } else {
-            console.log("updateCard error")
-            response.status(400).end() //skicka med felmeddelande
-          }
-        })
-      } else {
-        console.log("kortet existerar inte")
-        response.status(404).end()
+      const card = {
+        title: request.body.cardTitle,
+        desc: request.body.cardDesc,
+        date: request.body.cardDate, //TODO autmatic date
+        author: accountUsername
       }
-    })
-  })
 
-  app.delete('/delete-card/:id', (request, response) => { //TODO use more correct error messages
-    const id = parseInt(request.params.id)
+      if(!request.payload){
+        response.status(401).end()
+        return
+      }
 
-    cardsManager.checkIfCardExists(id, (errorArr) => {
-      if(errorArr.length < 1) {
-        cardsManager.deleteCard(id, (errArr) => {
-          if(errArr.length < 1)
+      cardsManager.createNewCard(card, (errors, resultsInsertId) => {
+        if(0 < errors.length){
+          response.status(400).json(errors)
+          return
+        } else {
+          response.setHeader("Location", "/cards/"+resultsInsertId)
           response.status(200).end()
-          else
-          response.status(400).json(errArr)
-        })
-      } else {
-        response.status(400).json(errorArr)
-      }
+        }
+      })
     })
-  })
 
-  return app
-}
+    app.put('/card/:id', (request, response) => { //klar funkar fintfint
+      const id = parseInt(request.params.id)
+      const accountId = request.payload.accountId
+      const accountUsername = request.payload.username
+      const card = {
+        title: request.body.cardTitle,
+        desc: request.body.cardDesc,
+        date: request.body.cardDate, //TODO autmatic date
+        author: accountUsername
+      }
+
+      if(!request.payload){
+        response.status(401).end()
+        return
+      }
+
+      cardsManager.checkIfCardExists(id, (errorArr) => {
+        if(errorArr.length < 1) {
+          cardsManager.updateCard(id, card, accountId, (errors, results) => {
+            console.log("RESULTS",results)
+            if(errors.length < 1) {
+              if(results.affectedRows == 1) {
+                response.status(204).end()
+              } else {
+                response.status(404).json({error: "Not your card or it doesn't exist"}).end()
+              }
+            } else {
+              response.status(400).json({errorMessages: errors}).end()
+            }
+          })
+        } else {
+          response.status(404).json({errorMsg: errorArr}).end()
+        }
+      })
+    })
+
+    app.delete('/card/:id',  function(request, response) {
+      const id = parseInt(request.params.id)
+
+      if(!request.payload) {
+        response.status(401).end()
+        return
+      }
+
+      const accountId = request.payload.accountId
+
+      cardsManager.checkIfCardExists(id, function(errorArr) { //verkar fungera fintfint, Erika kan inte deleta Simmes kort
+        if(errorArr.length < 1) {
+          cardsManager.deleteCard(id, accountId, function(errArr, recvAccId) {
+            if(errArr.length < 1) {
+              console.log("results",recvAccId)
+              if(recvAccId.affectedRows == 1) {
+                response.status(204).end()
+              } else {
+                response.status(404).end()
+              }
+            } else
+            response.status(400).json({errors: errArr})
+          })
+        } else {
+          response.status(400).json({errors: errorArr})
+        }
+      })
+    })
+
+    app.post('/sign-up', function(request, response) {
+      var messages = []
+      var accountCredentials = {
+        username: request.body.username,
+        email: request.body.email,
+        password1: request.body.password,
+        password2: request.body.password
+      }
+
+      accountManager.createAccount(accountCredentials, (errors, accId) => {
+        if(0 < errors.length) {
+          response.status(400).json({model: errors})
+        } else {
+          messages.push(accId)
+          response.status(200).json({model: messages})
+        }
+      })
+    })
+
+    return app
+  }

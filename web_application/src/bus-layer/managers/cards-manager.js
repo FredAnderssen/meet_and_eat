@@ -25,16 +25,16 @@ module.exports = ({cardsRepository}) => {
       cardsRepository.createComment(comment, id, callback)
     },
 
-    deleteCard: (cardId, callback) => {
-      cardsRepository.deleteCard(cardId, callback)
+    deleteCard: (cardId, accountId, callback) => {
+      cardsRepository.deleteCard(cardId, accountId, callback)
     },
 
     checkIfCardExists: (cardId, callback) => {
       cardsRepository.checkIfCardExists(cardId, callback)
     },
 
-    updateCard: (cardId, cardObj, callback) => {
-      cardsRepository.updateCard(cardId, cardObj, callback)
+    updateCard: (cardId, cardObj, accountId, callback) => {
+      cardsRepository.updateCard(cardId, cardObj, accountId, callback)
     }
   }
 }
