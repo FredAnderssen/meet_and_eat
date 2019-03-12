@@ -3,27 +3,23 @@ const expressHandlebars = require('express-handlebars')
 const bodyParser = require('body-parser')
 const path = require('path')
 const cookieParser = require('cookie-parser')
-var mysql = require('mysql');
 
-//const accountRouter = require('./routers/account-router')
-//const cardsRouter = require('./routers/cards-router')
-//const setupRouters = require('./routers/account-router')
 
 function createServer() {
-  const router = express.Router()
 
   const app = express()
 
   //create DI container--?
   const awilix = require('awilix')
   const accountRouter = require('./routers/account-router')
-  const accountRepository = require('../data-layer/repositories/account-repository')
+  //orm
+  const accountRepository = require('../data-layer-orm/repositories/account-repository-orm')
   const accountManager = require('../bus-layer/managers/account-manager')
   const accountValidator = require('../bus-layer/managers/account-validator')
   const crypt = require('../bus-layer/utilities/crypt')
 
   const cardsRouter = require('./routers/cards-router')
-  const cardsRepository = require('../data-layer/repositories/cards-repository')
+  const cardsRepository = require('../data-layer-orm/repositories/cards-repository-orm')
   const cardsManager = require('../bus-layer/managers/cards-manager')
 
   const container = awilix.createContainer()

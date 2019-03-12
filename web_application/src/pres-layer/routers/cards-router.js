@@ -11,19 +11,16 @@ module.exports = ({cardsManager}) => {
 		var isLoggedIn = request.session.isLoggedIn
 		request.session.token = Math.random()
 
-		// Cookies that have not been signed
-		console.log('Cookies: ', request.cookies)
-		// Cookies that have been signed
-		console.log('Signed Cookies: ', request.signedCookies)
-
-		var message = cardsManager.getAllCards((errors, cards, comments) => {
-			const model = {
-				cards: cards,
-				comments: comments,
-				errors: errors,
-				isLoggedIn: isLoggedIn
+		var message = cardsManager.getAllCards((errors, cards) => {
+			if(errors.length > 0) {
+				response.render("error.hbs")
+			} else {
+				const model = {
+					cards: cards,
+					isLoggedIn: isLoggedIn
+				}
+				response.render("index.hbs", model)
 			}
-			response.render("index.hbs", model)
 		})
 	})
 
@@ -38,13 +35,21 @@ module.exports = ({cardsManager}) => {
 			else {
 
 				var message = cardsManager.getCommentsById(id, (errors, comments) => {
-					console.log(comments)
-					const model = {
-						id: id,
-						card: card,
-						comments: comments
+					var commentArray = []
+					if(errors.length > 0){
+						console.log(error)
+						response.render("error.hbs", error)
+					} else {
+						for(i = 0; i < comments.length; ++i){
+							commentArray.push(comments[i].comment)
+						}
+						const model = {
+							id: id,
+							card: card,
+							comments: comments
+						}
+						response.render("open-card.hbs", model)
 					}
-					response.render("open-card.hbs", model)
 				})
 			}
 		})
@@ -56,16 +61,22 @@ module.exports = ({cardsManager}) => {
 	})
 
 	router.post('/create-card', (request, response) => {
-
+		var messages = []
 		const card = {
 			title: request.body.cardTitle,
 			desc: request.body.cardDesc,
-			date: request.body.cardDate, //TODO autmatic date
-			author: request.body.cardAuthor //TODO automatic username from account
+			author: request.session.username,
+			accountIdFK: request.session.userId
 		}
 
 		cardsManager.createNewCard(card, (errors, callback) => {
-			response.redirect('/')
+			if(errors.length > 0) {
+				console.log(errors)
+				response.render("error.hbs", errors)
+			}else {
+				messages.push(callback)
+				response.render("success.hbs", {model: messages})
+			}
 		})
 	})
 

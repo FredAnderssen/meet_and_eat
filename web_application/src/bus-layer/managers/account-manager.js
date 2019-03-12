@@ -16,7 +16,7 @@ module.exports = function({accountRepository, accountValidator, crypt}) {
 								if(err.length <= 0)
 								callback(errors, res)
 								else {
-									console.log(err)
+									console.log("CREATE ACCOUNT ERROR: " + err)
 									errors.push('Database error making account') //TODO skriv om felmeddelande
 									callback(errors, null)
 								}
@@ -30,8 +30,8 @@ module.exports = function({accountRepository, accountValidator, crypt}) {
 			})
 		},
 
-		getAccountByUsername: function(username, callback){
-			accountRepository.getAccountByUsername(username, callback)
+		getAccountByUsername: function(username, userobject){
+			accountRepository.getAccountByUsername(username, userobject)
 		},
 
 		checkIfUserExists: (username, callback) => {

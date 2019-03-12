@@ -1,8 +1,8 @@
 module.exports = ({cardsRepository}) => {
   return {
 
-    getAllCards: (callback) => {
-      cardsRepository.getAllCards(callback)
+    getAllCards: (cards) => {
+      cardsRepository.getAllCards(cards)
     },
 
     createNewCard: (cardObj, callback) => {
