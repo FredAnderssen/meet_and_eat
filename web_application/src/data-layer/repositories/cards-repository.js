@@ -18,7 +18,7 @@ module.exports = function({}) {
 
     getCommentsById: (id, callback) => {
 
-      const query = "SELECT * FROM comments WHERE idAccFK = ? ORDER BY commentId DESC"
+      const query = "SELECT * FROM comments WHERE accIdFK = ? ORDER BY commentId DESC"
       const values = [id]
 
       db.query(query, values, function(error, comments) {
@@ -52,9 +52,9 @@ module.exports = function({}) {
     },
 
     createCard: (card, callback) => {
-      const query = 'INSERT INTO cards (cardTitle, cardDesc, idAccountFK) \
+      const query = 'INSERT INTO cards (cardTitle, cardDesc, accountIdFK) \
       VALUES (?, ?, (SELECT accountId FROM accounts WHERE username = ?))'
-    
+
       const values = [card.title, card.desc, card.author]
 
       console.log("Create card: " + values)
@@ -71,7 +71,7 @@ module.exports = function({}) {
 
 
     createComment: (comment, callback) => {
-      const query = "INSERT INTO comments (comment, idAccFk) \
+      const query = "INSERT INTO comments (comment, cardIdFK) \
       VALUES (?, ?)"
 
       const values = [comment.comment, comment.id]
@@ -85,8 +85,8 @@ module.exports = function({}) {
       })
     },
 
-    deleteCard: function(cardId, accId, callback) { 
-      const query = 'DELETE FROM cards WHERE cardId = ? AND idAccountFK = ?'
+    deleteCard: function(cardId, accId, callback) {
+      const query = 'DELETE FROM cards WHERE cardId = ? AND accountIdFK = ?'
       const values = [cardId, accId]
 
       db.query(query, values, function(err, idAccountFK) {
@@ -123,8 +123,8 @@ module.exports = function({}) {
       console.log("cardobj.author ::", cardObj.author)
       console.log(cardId, cardObj, accountId)
 
-      const query = 'UPDATE cards SET cardTitle = ?, cardDesc = ?, cardDate = ?, idAccountFK = (SELECT accountId FROM accounts WHERE username = ?) WHERE cardId = ? AND idAccountFK = ?'
-      const values = [cardObj.title, cardObj.desc, cardObj.date, cardObj.author, cardId, accountId]
+      const query = 'UPDATE cards SET cardTitle = ?, cardDesc = ?, accountIdFK = (SELECT accountId FROM accounts WHERE username = ?) WHERE cardId = ? AND accountIdFK = ?'
+      const values = [cardObj.title, cardObj.desc, cardObj.author, cardId, accountId]
 
       db.query(query, values, (error, results) => {
         console.log("results in datalayer:", results)

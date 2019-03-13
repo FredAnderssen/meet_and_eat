@@ -9,13 +9,13 @@ const mainApp = express()
 
 const awilix = require('awilix')
 const accountRouter = require('./routers/account-router')
-const accountRepository = require('../data-layer-orm/repositories/account-repository-orm')
+const accountRepository = require('../data-layer/repositories/account-repository')
 const accountManager = require('../bus-layer/managers/account-manager')
 const accountValidator = require('../bus-layer/managers/account-validator')
 const crypt = require('../bus-layer/utilities/crypt')
 
 const cardsRouter = require('./routers/cards-router')
-const cardsRepository = require('../data-layer-orm/repositories/cards-repository-orm')
+const cardsRepository = require('../data-layer/repositories/cards-repository')
 const cardsManager = require('../bus-layer/managers/cards-manager')
 
 var apiApp = require('../api-pres-layer/api'); //TODO DI=?

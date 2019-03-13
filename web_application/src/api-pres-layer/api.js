@@ -15,7 +15,6 @@ module.exports = function({accountManager, cardsManager}) {
 
   app.use((request, response, next) => {
 
-
     try {
       const authHeader = request.get("Authorization")
       console.log(authHeader)
@@ -27,7 +26,7 @@ module.exports = function({accountManager, cardsManager}) {
 
     } catch(e) {
       //..access token missing or invalid
-      console.log("IN THE CATCH; token missing or invalid")
+      console.log("IN THE CATCH; token missing or invalid", e)
     }
     next()
   })
@@ -179,7 +178,7 @@ module.exports = function({accountManager, cardsManager}) {
               if(recvAccId.affectedRows == 1) {
                 response.status(204).end()
               } else {
-                response.status(404).end()
+                response.status(401).end()
               }
             } else
             response.status(400).json({errors: errArr})
