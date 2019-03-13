@@ -16,7 +16,7 @@ module.exports = function({}) {
 			})
 		},
 
-		getAccountByUsername: function(username, callback){
+		getAccountByUsername: function(username, callback){ //TODO får vi tillbaka account här? ja
 			const query = `SELECT * FROM accounts WHERE username = ? LIMIT 1`
 			const values = [username]
 			db.query(query, values, function(error, accounts){

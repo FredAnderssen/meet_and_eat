@@ -9,6 +9,8 @@ module.exports = function({crypt}) {
 	return {
 		getErrorsNewAccount: function(account, callback){
 			const errors = []
+
+			console.log("ACCOUNT OBJECT HEEEEEEERE:",account)
 			// Validate username.
 			if(!account.hasOwnProperty("username")){
 				errors.push("No username entered")

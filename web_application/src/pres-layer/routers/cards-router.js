@@ -28,7 +28,7 @@ module.exports = ({cardsManager}) => {
 
 		cardsManager.getSpecificCardById(request.params.id, (errors, card) => {
 			var id = request.params.id
-			
+
 			if(errors.length > 0) {
 				response.render("error.hbs")
 			}
@@ -53,7 +53,7 @@ module.exports = ({cardsManager}) => {
 				})
 			}
 		})
-	}) 
+	})
 
 
 	router.get('/create-card', (request, response) => {
@@ -77,6 +77,7 @@ module.exports = ({cardsManager}) => {
 				messages.push(callback)
 				response.render("success.hbs", {model: messages})
 			}
+
 		})
 	})
 
@@ -87,6 +88,7 @@ module.exports = ({cardsManager}) => {
 			id: request.params.id
 		}
 		cardsManager.addComment(comment, (errors, callback) => {
+
 		})
 
 		response.redirect("../open-card/" + [comment.id])
@@ -96,6 +98,3 @@ module.exports = ({cardsManager}) => {
 
 	return router
 }
-
-
-
