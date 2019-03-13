@@ -134,6 +134,5 @@ module.exports = function({}) {
           callback([], results)
       })
     }
-
   }
 }

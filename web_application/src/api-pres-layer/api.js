@@ -107,7 +107,6 @@ module.exports = function({accountManager, cardsManager}) {
       const card = {
         title: request.body.cardTitle,
         desc: request.body.cardDesc,
-        date: request.body.cardDate, //TODO autmatic date
         author: accountUsername
       }
 
@@ -134,7 +133,6 @@ module.exports = function({accountManager, cardsManager}) {
       const card = {
         title: request.body.cardTitle,
         desc: request.body.cardDesc,
-        date: request.body.cardDate, //TODO autmatic date
         author: accountUsername
       }
 
