@@ -1,6 +1,5 @@
 const db = require('./db')
 
-
 module.exports = function({}) {
 	return {
 		//alla funktioner i här
@@ -22,6 +21,7 @@ module.exports = function({}) {
 			const values = [username]
 			db.query(query, values, function(error, accounts){
 				if(error){
+					console.log("ERROR IN ACCOUNT BY USERNAME " + error)
 					callback(['databaseError'], null)
 				}else{
 					callback([], accounts[0])

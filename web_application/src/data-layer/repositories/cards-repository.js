@@ -8,10 +8,11 @@ module.exports = function({}) {
       const values = []
 
       db.query(query, values, (error, cards) => {
-        if(error)
-        callback(['databaseError'], null)
-        else
-        callback([], cards)
+        if(error){
+          callback(['databaseError'], null)
+        } else {
+          callback([], cards)
+        }
       })
     },
 
@@ -51,10 +52,11 @@ module.exports = function({}) {
     },
 
     createCard: (card, callback) => {
-      const query = 'INSERT INTO cards (cardTitle, cardDesc, cardDate, idAccountFK) \
-      VALUES (?, ?, ?, (SELECT accountId FROM accounts WHERE username = ?))'
+      const query = 'INSERT INTO cards (cardTitle, cardDesc, idAccountFK) \
+      VALUES (?, ?, (SELECT accountId FROM accounts WHERE username = ?))'
+    
+      const values = [card.title, card.desc, card.author]
 
-      const values = [card.title, card.desc, card.date, card.author]
       console.log("Create card: " + values)
       db.query(query, values, (error, results) => {
         if(error) {

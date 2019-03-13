@@ -3,12 +3,12 @@ const expressHandlebars = require('express-handlebars')
 const bodyParser = require('body-parser')
 const path = require('path')
 const cookieParser = require('cookie-parser')
-var mysql = require('mysql');
 
 module.exports = function({accountRouter, cardsRouter}) {
 
   const router = express.Router()
   const app = express()
+
 
   app.set('views', path.join(__dirname, 'views'))
   app.engine('hbs', expressHandlebars({
