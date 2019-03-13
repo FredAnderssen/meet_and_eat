@@ -60,8 +60,8 @@ module.exports = ({cardsManager}) => {
 		const card = {
 			title: request.body.cardTitle,
 			desc: request.body.cardDesc,
-			date: request.body.cardDate, //TODO autmatic date
-			author: request.body.cardAuthor //TODO automatic username from account
+			date: request.body.cardDate, //TODO automatic date
+			author: request.session.username
 		}
 
 		cardsManager.createNewCard(card, (errors, results) => {
