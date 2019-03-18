@@ -37,8 +37,8 @@ module.exports = ({cardsManager}) => {
 				var message = cardsManager.getCommentsById(id, (errors, comments) => {
 					var commentArray = []
 					if(errors.length > 0){
-						console.log(error)
-						response.render("error.hbs", error)
+						console.log(errors)
+						response.render("error.hbs", errors)
 					} else {
 						for(i = 0; i < comments.length; ++i){
 							commentArray.push(comments[i].comment)

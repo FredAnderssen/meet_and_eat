@@ -29,3 +29,9 @@ services:
     environment:
         - MYSQL_ROOT_PASSWORD=FredricJoakim
         - MYSQL_DATABASE=meetandeat_db
+  nginx:
+    build: ./SPA
+    ports:
+      - "3001:80"
+    depends_on:
+      - web_application
