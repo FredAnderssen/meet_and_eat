@@ -40,9 +40,9 @@ function changePage(uri){
 		id = "sign-up-page"
 	}else if(uri == "/sign-in"){
 		id = "sign-in-page"
-	}else if(uri == "/your-movies"){
-		id = "your-movies-page"
-		updateYourMovies()
+	}else if(uri == "/all-cards"){
+		id = "all-cards-page"
+		getAllCards()
 	}else if(uri == "/create-movie"){
 		id = "create-movie-page"
 	}else if (uri.startsWith("/movies/")){

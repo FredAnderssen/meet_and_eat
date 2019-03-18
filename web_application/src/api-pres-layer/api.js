@@ -21,7 +21,7 @@ module.exports = function({accountManager, cardsManager}) {
 
     next()
   })
-/*
+
   app.use((request, response, next) => {
 
     try {
@@ -35,10 +35,10 @@ module.exports = function({accountManager, cardsManager}) {
 
     } catch(e) {
       //..access token missing or invalid
-      console.log("IN THE CATCH; token missing or invalid", e)
+      console.log("IN THE CATCH; token missing or invalid ", e)
     }
     next()
-  }) */
+  }) 
 
   //loggar in här och får tilldelat två tokens
   app.post('/tokens', (request, response) => {
@@ -63,21 +63,13 @@ module.exports = function({accountManager, cardsManager}) {
             })
           } else {
             console.log("acount id here: ", account.accountId)
-            console.log("acount´HERE ", account)
+            console.log("acount´HERE ", account.accountUsername)
 
 
-            const accessToken = jwt.sign({accountId: account.accountId, username: account.username}, jwtSecret) //skicaks tillbaka sen
+            const accessToken = jwt.sign({accountId: account.accountId}, jwtSecret) //skicaks tillbaka sen
             const idToken = jwt.sign({ //bara för att vi ska veta vem klienten är
               sub: account.accountId,
               preferred_username: account.username}, "anotha secret LOLOL")
-
-              console.log("TOKENS HERE: ", accessToken, idToken)
-
-              var decoded = jwt.decode(accessToken);
-              console.log(decoded.header);
-              console.log(decoded.payload)
-              console.log("PAYLOAD:", accessToken.payload)
-              console.log("idTOken PAYLOAD:", idToken.payload)
 
               response.status(200).json({access_token: accessToken, id_token: idToken})
             }
@@ -92,16 +84,14 @@ module.exports = function({accountManager, cardsManager}) {
 
     app.get("/cards", (request, response) => { //TODO auth
 
-      console.log("PAYLOAD HERE:", request.payload)
       if(!request.payload){
         response.status(401).end()
         return
       }
 
-      cardsManager.getAllCards((errors, cards, comments) => {
+      cardsManager.getAllCards((errors, cards) => {
         const model = {
           cards: cards,
-          comments: comments,
           errors: errors
         }
         response.status(200).json(model)

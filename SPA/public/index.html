@@ -9,8 +9,7 @@
 	<script src="../js/navigation.js"></script>
 	<script src="../js/sign-up-page.js"></script>
 	<script src="../js/sign-in-page.js"></script>
-	<script src="./js/show-cards-page.js"></script>
-	<script src="your-movies-page.js"></script>
+	<script src="js/all-cards-page.js"></script>
 	<script src="show-movie-page.js"></script>
 	<script src="edit-movie-page.js"></script>
 	<script src="../js/jwt-decode.js"></script>
@@ -28,7 +27,7 @@
 			<li><a href="/contact">Contact</a></li>
 			<li class="show-if-not-logged-in"><a href="/sign-up">Sign up</a></li>
 			<li class="show-if-not-logged-in"><a href="/sign-in">Sign in</a></li>
-			<li class="show-if-logged-in"><a href="/your-movies">Your movies</a></li>
+			<li class="show-if-logged-in"><a href="/all-cards">All cards</a></li>
 			<li class="show-if-logged-in"><a href="/create-movie">Create movie</a></li>
 			<li class="show-if-logged-in">Logged in as <span id="username"></span></li>
 		</ul>
@@ -36,10 +35,9 @@
 
 	<main>
 
-		<div id="home-page" class="current-page">
-			<h1>Home</h1>
-			<h1 style="color: red">REMEMBER TO ACTIVATE CORS ON THE SERVER</h1>
-			<p>This is the home page.</p>
+		<div id="home-page">
+				<h1>Home</h1>
+				<p>Here is the home page</p>
 		</div>
 
 		<div id="about-page">
@@ -81,9 +79,9 @@
 			</form>
 		</div>
 
-		<div id="your-movies-page">
-			<h1>Movies</h1>
-			<p>Here are the movies:</p>
+		<div id="all-cards-page" class="current-page">
+			<h1>Cards</h1>
+			<p>Here are the cards:</p>
 			<ul>
 				<!-- Populate with the user's all movies. -->
 			</ul>
@@ -102,7 +100,7 @@
 			</form>
 		</div>
 
-		<div id="show-movie-page">
+		<div id="show-cards-page">
 			<h1>Movie title</h1>
 			<p>Movie runtime</p>
 			<a id="edit-link">Edit</a>
