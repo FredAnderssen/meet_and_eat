@@ -1,0 +1,41 @@
+header{
+	text-align: center;
+	font-size: 200%;
+	padding: 5px;
+}
+
+
+
+
+nav ul{
+	padding: 5px;
+	margin: 0;
+	text-align: center;
+}
+
+nav li{
+	display: inline-block;
+	margin: 0 5px;
+}
+
+nav .show-if-not-logged-in, nav .show-if-logged-in{
+	display: none;
+}
+
+nav:not(.user-is-logged-in) .show-if-not-logged-in{
+	display: inline-block;
+}
+
+nav.user-is-logged-in .show-if-logged-in{
+	display: inline-block;
+}
+
+
+
+main > div{
+	display: none;
+}
+
+.current-page{
+	display: block;
+}
