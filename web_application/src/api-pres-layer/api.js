@@ -13,13 +13,22 @@ module.exports = function({accountManager, cardsManager}) {
   app.use(bodyParser.json())
   app.use(bodyParser.urlencoded({extended: false}))
 
+  //CORS middleware
+  app.use(function(request, response, next) {
+    response.setHeader('Access-Control-Allow-Origin', '*') //TODO fråga plg varför Safari fucked up?
+    response.setHeader('Access-Control-Allow-Methods', '*')
+    response.setHeader('Access-Control-Allow-Headers', '*')
+
+    next()
+  })
+/*
   app.use((request, response, next) => {
 
     try {
       const authHeader = request.get("Authorization")
-      console.log(authHeader)
+      console.log("VAD ÄR DETTA?",authHeader)
 
-      const accessTokenString = authHeader //varför vill peter ha från rad 7 i strängen?
+      const accessTokenString = authHeader.substr("Bearer ".length) //TODO varför tar peter 7 raden?, funkar inte med det
       console.log("accessTokenString:",accessTokenString)
       request.payload = jwt.verify(accessTokenString, jwtSecret)
       console.log("req.payload:",request.payload)
@@ -29,7 +38,7 @@ module.exports = function({accountManager, cardsManager}) {
       console.log("IN THE CATCH; token missing or invalid", e)
     }
     next()
-  })
+  }) */
 
   //loggar in här och får tilldelat två tokens
   app.post('/tokens', (request, response) => {

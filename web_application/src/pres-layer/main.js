@@ -7,6 +7,15 @@ var mysql = require('mysql');
 
 const mainApp = express()
 
+//CORS middleware
+mainApp.use((response, request, next) => {
+  response.header('Access-Control-Allow-Origin', '*');
+  response.header('Access-Control-Allow-Methods', '*');
+  response.header('Access-Control-Allow-Headers', '*');
+
+  next();
+})
+
 const awilix = require('awilix')
 const accountRouter = require('./routers/account-router')
 const accountRepository = require('../data-layer/repositories/account-repository')
@@ -42,5 +51,6 @@ const theApp = container.resolve('app')
 
 mainApp.use('/api', theApiApp)
 mainApp.use('/', theApp)
+
 
 mainApp.listen(8080, () => console.log('Good to go on 3000!'))
