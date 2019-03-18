@@ -90,11 +90,11 @@ module.exports = function({accountManager, cardsManager}) {
       }
 
       cardsManager.getAllCards((errors, cards) => {
-        const model = {
-          cards: cards,
-          errors: errors
+        if(errors.length > 1) {
+          response.status(400).json(errors)
+        } else {
+          response.status(200).json(cards)
         }
-        response.status(200).json(model)
       })
     })
 

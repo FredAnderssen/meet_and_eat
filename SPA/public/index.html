@@ -4,8 +4,9 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Single Page Application</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
-  <link rel="stylesheet" href="./layout.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+	<link rel="stylesheet" href="./layout.css" />
+	<link  href="http://fonts.googleapis.com/css?family=Reenie+Beanie:regular" rel="stylesheet" type="text/css">
 	<script src="../js/navigation.js"></script>
 	<script src="../js/sign-up-page.js"></script>
 	<script src="../js/sign-in-page.js"></script>
@@ -35,7 +36,7 @@
 
 	<main>
 
-		<div id="home-page">
+		<div id="home-page" class="current-page">
 				<h1>Home</h1>
 				<p>Here is the home page</p>
 		</div>
@@ -79,12 +80,15 @@
 			</form>
 		</div>
 
-		<div id="all-cards-page" class="current-page">
+		<div id="all-cards-page">
 			<h1>Cards</h1>
 			<p>Here are the cards:</p>
-			<ul>
-				<!-- Populate with the user's all movies. -->
-			</ul>
+
+			<div class="container special-bg">
+				<div class="special-body">
+					<ul class="special-ul"></ul>
+				</div>
+			</div>
 		</div>
 
 		<div id="create-movie-page">

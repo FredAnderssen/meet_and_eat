@@ -9,21 +9,20 @@ function getAllCards(){
 		return response.json()
 	}).then(function(cards){
 		
-		const ul = document.querySelector("#all-cards-page h1")
+		const ul = document.querySelector("#all-cards-page ul")
 		ul.innerText = ""
-		//console.log("Here are the cards: " + cards[0])
-		//console.log("Here are the cards: " + cards[0].card)
-		console.log("Here are the cards: " + cards)
-		console.log("Here is the title: " + cards.cardTitle)
+
 		for(const card of cards){
 			
 			const li = document.createElement("li")
+			li.setAttribute("class", "special-ul-li")
 			
 			const a = document.createElement("a")
-			a.innerText = card.title
-
-			/* a.setAttribute("href", "/cards/"+card.id)
-			a.addEventListener("click", handleClickOnAnchor) */
+			a.setAttribute("class", "special-p special-a")
+			a.innerText = card.cardTitle
+			
+			a.setAttribute("href", "/cards/"+card.cardId)
+			a.addEventListener("click", handleClickOnAnchor)
 
 			li.appendChild(a)
 			
