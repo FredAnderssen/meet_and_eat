@@ -18,7 +18,7 @@ module.exports = function({}) {
 
     getCommentsById: (id, callback) => {
 
-      const query = "SELECT * FROM comments WHERE accIdFK = ? ORDER BY commentId DESC"
+      const query = "SELECT * FROM comments WHERE cardIdFK = ? ORDER BY commentId DESC"
       const values = [id]
 
       db.query(query, values, function(error, comments) {
@@ -31,7 +31,7 @@ module.exports = function({}) {
         }else {
 
           for(i = 0; i < comments.length; ++i) {
-            commentArray.push(comments[i].comment)
+            commentArray.push(comments[i])
           }
           callback([], commentArray)
         }
