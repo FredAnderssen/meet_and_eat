@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function(){
 			document.querySelector("nav").classList.add("user-is-logged-in")
 			document.getElementById("username").innerText = userInfo.preferred_username
 
-			changePage("/show-cards-page")
+			changePage("/")
 
 		}).catch(function(error){
 			console.log(error)
