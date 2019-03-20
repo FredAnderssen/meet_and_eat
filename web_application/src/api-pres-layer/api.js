@@ -26,12 +26,8 @@ module.exports = function({accountManager, cardsManager}) {
 
     try {
       const authHeader = request.get("Authorization")
-      console.log("VAD ÄR DETTA?",authHeader)
-
       const accessTokenString = authHeader.substr("Bearer ".length) //TODO varför tar peter 7 raden?, funkar inte med det
-      console.log("accessTokenString:",accessTokenString)
       request.payload = jwt.verify(accessTokenString, jwtSecret)
-      console.log("req.payload:",request.payload)
 
     } catch(e) {
       //..access token missing or invalid
@@ -46,7 +42,6 @@ module.exports = function({accountManager, cardsManager}) {
     const username = request.body.username
     const password = request.body.password
 
-    console.log(request.body)
     if(grant_type != "password"){
       response.status(400).json({error: "unsupported_grant_type"})
       return
@@ -62,11 +57,7 @@ module.exports = function({accountManager, cardsManager}) {
               error: "invalid_client"
             })
           } else {
-            console.log("acount id here: ", account.accountId)
-            console.log("acount´HERE ", account.accountUsername)
-
-
-            const accessToken = jwt.sign({accountId: account.accountId}, jwtSecret) //skicaks tillbaka sen
+            const accessToken = jwt.sign({accountId: account.accountId, username: username}, jwtSecret) //skicaks tillbaka sen
             const idToken = jwt.sign({ //bara för att vi ska veta vem klienten är
               sub: account.accountId,
               preferred_username: account.username}, "anotha secret LOLOL")
@@ -100,14 +91,14 @@ module.exports = function({accountManager, cardsManager}) {
 
     //TODO så man inte kan skapa kort åt någon annan, kan inte göra et nu? :D
     app.post('/card', (request, response) => { //TODO auth
-      const accountUsername = request.payload.username
 
       const card = {
         title: request.body.cardTitle,
         desc: request.body.cardDesc,
-        author: accountUsername
+        username: request.payload.username
       }
-
+      console.log("Card object: " + card.username)
+      console.log("Username: " + request.payload.username)
       if(!request.payload){
         response.status(401).end()
         return
@@ -123,6 +114,27 @@ module.exports = function({accountManager, cardsManager}) {
         }
       })
     })
+
+    app.get('/cards/:id', (request, response) => {
+      
+      const id = parseInt(request.params.id)
+
+      if(!request.payload){
+        response.status(401).end()
+        return
+      }
+
+      cardsManager.getSpecificCardById(id, (errors, card) => {
+  
+        if(errors.length > 0) {
+          response.status(400).json(errors)
+        }
+        else {
+          response.status(200).json(card)
+        }
+      })
+    })
+
 
     app.put('/card/:id', (request, response) => { //klar funkar fintfint
       const id = parseInt(request.params.id)
@@ -142,7 +154,6 @@ module.exports = function({accountManager, cardsManager}) {
       cardsManager.checkIfCardExists(id, (errorArr) => {
         if(errorArr.length < 1) {
           cardsManager.updateCard(id, card, accountId, (errors, results) => {
-            console.log("RESULTS",results)
             if(errors.length < 1) {
               if(results.affectedRows == 1) {
                 response.status(204).end()

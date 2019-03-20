@@ -64,6 +64,16 @@ main > div{
     list-style-type:none;
     padding:2em;
   }
+
+  .special-card-bg{
+    text-decoration:none;
+    color:#000;
+    background:#ffc;
+    display:block;
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+
   .special-a{
     text-decoration:none;
     color:#000;

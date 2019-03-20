@@ -53,15 +53,12 @@ module.exports = function({}) {
       const query = 'INSERT INTO cards (cardTitle, cardDesc, accountIdFK) \
       VALUES (?, ?, (SELECT accountId FROM accounts WHERE username = ?))'
 
-      const values = [card.title, card.desc, card.author]
+      const values = [card.title, card.desc, card.username]
 
-      console.log("Create card: " + values)
       db.query(query, values, (error, results) => {
         if(error) {
-          console.log("CREATE CARD ERROR + " + error.message)
           callback(['databaseError'], null)
         } else {
-          console.log("RESULT INSERTID" + results.insertId)
           callback([], results.insertId)
         }
       })

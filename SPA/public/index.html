@@ -3,16 +3,17 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Single Page Application</title>
+	<title>Meet & Eat</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
 	<link rel="stylesheet" href="./layout.css" />
 	<link  href="http://fonts.googleapis.com/css?family=Reenie+Beanie:regular" rel="stylesheet" type="text/css">
-	<script src="../js/navigation.js"></script>
-	<script src="../js/sign-up-page.js"></script>
-	<script src="../js/sign-in-page.js"></script>
+	<script src="js/navigation.js"></script>
+	<script src="js/sign-up-page.js"></script>
+	<script src="js/sign-in-page.js"></script>
 	<script src="js/all-cards-page.js"></script>
-	<script src="show-movie-page.js"></script>
-	<script src="edit-movie-page.js"></script>
+	<script src="js/show-card-page.js"></script>
+	<script src="js/edit-card-page.js"></script>
+	<script src="js/create-card-page.js"></script>
 	<script src="../js/jwt-decode.js"></script>
 </head>
 <body>
@@ -29,7 +30,7 @@
 			<li class="show-if-not-logged-in"><a href="/sign-up">Sign up</a></li>
 			<li class="show-if-not-logged-in"><a href="/sign-in">Sign in</a></li>
 			<li class="show-if-logged-in"><a href="/all-cards">All cards</a></li>
-			<li class="show-if-logged-in"><a href="/create-movie">Create movie</a></li>
+			<li class="show-if-logged-in"><a href="/create-card">Create card</a></li>
 			<li class="show-if-logged-in">Logged in as <span id="username"></span></li>
 		</ul>
 	</nav>
@@ -81,43 +82,46 @@
 		</div>
 
 		<div id="all-cards-page">
-			<h1>Cards</h1>
-			<p>Here are the cards:</p>
 
 			<div class="container special-bg">
 				<div class="special-body">
 					<ul class="special-ul"></ul>
 				</div>
 			</div>
+
 		</div>
 
-		<div id="create-movie-page">
-			<h1>Create movie</h1>
+		<div id="create-card-page">
+			<h1>Create card</h1>
 			<form>
 				<div>
-					Title: <input type="text" id="create-movie-title">
+					Title: <input type="text" id="create-card-title">
 				</div>
 				<div>
-					Runtime: <input type="number" id="create-movie-runtime">
+					Description: <input type="text" id="create-card-description">
 				</div>
 				<input type="submit" value="Create">
 			</form>
 		</div>
 
-		<div id="show-cards-page">
-			<h1>Movie title</h1>
-			<p>Movie runtime</p>
-			<a id="edit-link">Edit</a>
+		<div id="show-card-page">
+			<div class="columns is-centered special-body">
+				<div class="column is-5 special-card-bg">
+						<h1 class="special-p">Card title</h1>
+						<p>Card description</p>
+						<a id="edit-link">Edit</a>
+				</div>
+			</div>
 		</div>
 
-		<div id="edit-movie-page">
-			<h1>Edit movie</h1>
+		<div id="edit-card-page">
+			<h1>Edit card</h1>
 			<form>
 				<div>
-					Title: <input type="text" id="edit-movie-title">
+					Title: <input type="text" id="edit-card-title">
 				</div>
 				<div>
-					Runtime: <input type="number" id="edit-movie-runtime">
+					Description: <input type="text" id="edit-card-description">
 				</div>
 				<input type="submit" value="Update">
 			</form>

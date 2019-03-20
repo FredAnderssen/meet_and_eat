@@ -43,16 +43,16 @@ function changePage(uri){
 	}else if(uri == "/all-cards"){
 		id = "all-cards-page"
 		getAllCards()
-	}else if(uri == "/create-movie"){
-		id = "create-movie-page"
-	}else if (uri.startsWith("/movies/")){
-		const movieId = parseInt(uri.split("/")[2])
-		id = "show-movie-page"
-		updateShowMoviePage(movieId)
-	}else if(uri.startsWith("/edit-movie/")){
-		const movieId = parseInt(uri.split("/")[2])
-		id = "edit-movie-page"
-		updateEditMoviePage(movieId)
+	}else if(uri == "/create-card"){
+		id = "create-card-page"
+	}else if (uri.startsWith("/cards/")){
+		const cardId = parseInt(uri.split("/")[2])
+		id = "show-card-page"
+		getSpecificCard(cardId)
+	}else if(uri.startsWith("/edit-card/")){
+		const cardId = parseInt(uri.split("/")[2])
+		id = "edit-card-page"
+		updateEditCardPage(cardId)
 	}
 
 	document.getElementById(id).classList.add("current-page")

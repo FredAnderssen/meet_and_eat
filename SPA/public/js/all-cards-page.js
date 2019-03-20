@@ -20,14 +20,11 @@ function getAllCards(){
 			const a = document.createElement("a")
 			a.setAttribute("class", "special-p special-a")
 			a.innerText = card.cardTitle
-			
 			a.setAttribute("href", "/cards/"+card.cardId)
 			a.addEventListener("click", handleClickOnAnchor)
 
 			li.appendChild(a)
-			
 			ul.appendChild(li)
-			
 		}
 		
 	}).catch(function(error){
