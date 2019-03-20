@@ -11,7 +11,7 @@ module.exports = ({cardsManager}) => {
 		var isLoggedIn = request.session.isLoggedIn
 		request.session.token = Math.random()
 
-		var message = cardsManager.getAllCards((errors, cards) => {
+		cardsManager.getAllCards((errors, cards) => {
 			if(errors.length > 0) {
 				response.render("error.hbs")
 			} else {
@@ -33,11 +33,9 @@ module.exports = ({cardsManager}) => {
 				response.render("error.hbs")
 			}
 			else {
-				console.log("got past the errors in getspecificcardbyid")
-				var message = cardsManager.getCommentsById(id, (errors, comments) => {
+				cardsManager.getCommentsById(id, (errors, comments) => {
 					var commentArray = []
 					if(errors.length > 0){
-						console.log(errors)
 						response.render("error.hbs", errors)
 					} else {
 						for(i = 0; i < comments.length; ++i){
@@ -48,6 +46,7 @@ module.exports = ({cardsManager}) => {
 							card: card,
 							comments: comments
 						}
+						console.log("KORTET HÄR:", card)
 						response.render("open-card.hbs", model)
 					}
 				})
@@ -71,7 +70,6 @@ module.exports = ({cardsManager}) => {
 
 		cardsManager.createNewCard(card, (errors, callback) => {
 			if(errors.length > 0) {
-				console.log(errors)
 				response.render("error.hbs", errors)
 			}else {
 				messages.push(callback)
@@ -82,15 +80,15 @@ module.exports = ({cardsManager}) => {
 	})
 
 	router.post('/create-comment/:id', (request, response) => {
-
 		const comment = {
 			comment: request.body.commentText,
 			id: request.params.id
 		}
 		cardsManager.addComment(comment, (errors, callback) => {
-
+			if(errors.length > 0) {
+				response.render("error.hbs", errors)
+			}
 		})
-
 		response.redirect("../open-card/" + [comment.id])
 	})
 

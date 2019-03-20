@@ -35,6 +35,10 @@ module.exports = ({cardsRepository}) => {
 
     updateCard: (cardId, cardObj, accountId, callback) => {
       cardsRepository.updateCard(cardId, cardObj, accountId, callback)
+    },
+
+    getAuthorOnCard: (cardId, callback) => {
+      cardsRepository.getAuthor(cardId, callback)
     }
   }
 }

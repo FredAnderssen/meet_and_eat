@@ -7,7 +7,6 @@ var mysql = require('mysql');
 
 const mainApp = express()
 
-//CORS middleware
 mainApp.use((response, request, next) => {
   response.header('Access-Control-Allow-Origin', '*');
   response.header('Access-Control-Allow-Methods', '*');
@@ -27,7 +26,7 @@ const cardsRouter = require('./routers/cards-router')
 const cardsRepository = require('../data-layer/repositories/cards-repository')
 const cardsManager = require('../bus-layer/managers/cards-manager')
 
-var apiApp = require('../api-pres-layer/api'); //TODO DI=?
+var apiApp = require('../api-pres-layer/api');
 var app = require('./app')
 
 const container = awilix.createContainer()
@@ -43,7 +42,7 @@ container.register('cardsRouter', awilix.asFunction(cardsRouter))
 container.register('cardsRepository', awilix.asFunction(cardsRepository))
 container.register('cardsManager', awilix.asFunction(cardsManager))
 
-container.register('apiApp', awilix.asFunction(apiApp)) //TODO DI?
+container.register('apiApp', awilix.asFunction(apiApp))
 container.register('app', awilix.asFunction(app))
 
 const theApiApp = container.resolve('apiApp')
@@ -51,6 +50,5 @@ const theApp = container.resolve('app')
 
 mainApp.use('/api', theApiApp)
 mainApp.use('/', theApp)
-
 
 mainApp.listen(8080, () => console.log('Good to go on 3000!'))

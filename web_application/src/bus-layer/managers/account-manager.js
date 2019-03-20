@@ -16,13 +16,12 @@ module.exports = function({accountRepository, accountValidator, crypt}) {
 								if(err.length <= 0)
 								callback(errors, res)
 								else {
-									console.log("CREATE ACCOUNT ERROR: " + err)
-									errors.push('Database error making account') //TODO skriv om felmeddelande
+									errors.push('Internal server error')
 									callback(errors, null)
 								}
 							})
 						} else {
-							errors.push('Hash error') //TODO skriv detta till 'Internal server error sen'
+							errors.push('Internal server error')
 							callback(errors, null)
 						}
 					})
@@ -46,7 +45,6 @@ module.exports = function({accountRepository, accountValidator, crypt}) {
 
 		checkPwWithDb: (username, plainPw, callback) => {
 			const errors = []
-			// Load hash from your password DB.
 			accountRepository.getHashOnAccount(username, function(error, hashedPw) {
 				errors.push(error)
 				if(error.length < 1) {
@@ -55,15 +53,11 @@ module.exports = function({accountRepository, accountValidator, crypt}) {
 						errors.push(err)
 						if(res) {
 							callback([])
-							console.log("plainPw and hash is same! GJ")
 						} else {
 							callback(errors)
-							console.log("logs error array here in bcryptcompare: ",errors)
-							console.log("Wrong with plainPw comparison hashedPw")
 						}
 					})
 				} else {
-					console.log("error occurred from getHashFromDbAccount: ",error)
 					callback(errors)
 				}
 			})
