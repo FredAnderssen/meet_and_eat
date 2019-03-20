@@ -13,6 +13,7 @@
 	<script src="js/all-cards-page.js"></script>
 	<script src="js/show-card-page.js"></script>
 	<script src="js/edit-card-page.js"></script>
+	<script src="js/delete-card-page.js"></script>
 	<script src="js/create-card-page.js"></script>
 	<script src="../js/jwt-decode.js"></script>
 </head>
@@ -110,9 +111,22 @@
 						<h1 class="special-p">Card title</h1>
 						<p>Card description</p>
 						<a id="edit-link">Edit</a>
+						<a id="delete-link">Delete</a>
 				</div>
 			</div>
 		</div>
+
+		<div id="delete-card-page">
+				<div class="columns is-centered special-body">
+					<div class="column is-5 special-card-bg">
+							<h1 class="special-p">Delete card:</h1>
+							<p>Card Title</p>
+							<form>
+								<input type="submit" value="Delete">
+							</form>						
+					</div>
+				</div>
+			</div>
 
 		<div id="edit-card-page">
 			<h1>Edit card</h1>

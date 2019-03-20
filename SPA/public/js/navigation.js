@@ -53,6 +53,10 @@ function changePage(uri){
 		const cardId = parseInt(uri.split("/")[2])
 		id = "edit-card-page"
 		updateEditCardPage(cardId)
+	}else if(uri.startsWith("/delete-card/")){
+		const cardId = parseInt(uri.split("/")[2])
+		id = "delete-card-page"
+		updateDeleteCardPage(cardId)
 	}
 
 	document.getElementById(id).classList.add("current-page")

@@ -12,7 +12,8 @@ function getSpecificCard(cardId){
 		document.querySelector("#show-card-page h1").innerText = card.cardTitle
 		document.querySelector("#show-card-page p").innerText = "Description: "+card.cardDesc
 		document.getElementById("edit-link").setAttribute("href", "/edit-card/"+card.cardId)
-		
+		document.getElementById("delete-link").setAttribute("href", "/delete-card/"+card.cardId)
+
 	}).catch(function(error){
 		console.log(error)
 	})
