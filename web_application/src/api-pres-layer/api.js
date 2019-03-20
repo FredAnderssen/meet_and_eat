@@ -13,23 +13,28 @@ module.exports = function({accountManager, cardsManager}) {
   app.use(bodyParser.json())
   app.use(bodyParser.urlencoded({extended: false}))
 
+  //CORS middleware
+  app.use(function(request, response, next) {
+    response.setHeader('Access-Control-Allow-Origin', '*') //TODO fråga plg varför Safari fucked up?
+    response.setHeader('Access-Control-Allow-Methods', '*')
+    response.setHeader('Access-Control-Allow-Headers', '*')
+
+    next()
+  })
+
   app.use((request, response, next) => {
 
     try {
       const authHeader = request.get("Authorization")
-      console.log(authHeader)
-
-      const accessTokenString = authHeader //varför vill peter ha från rad 7 i strängen?
-      console.log("accessTokenString:",accessTokenString)
+      const accessTokenString = authHeader.substr("Bearer ".length) //TODO varför tar peter 7 raden?, funkar inte med det
       request.payload = jwt.verify(accessTokenString, jwtSecret)
-      console.log("req.payload:",request.payload)
 
     } catch(e) {
       //..access token missing or invalid
-      console.log("IN THE CATCH; token missing or invalid", e)
+      console.log("IN THE CATCH; token missing or invalid ", e)
     }
     next()
-  })
+  }) 
 
   //loggar in här och får tilldelat två tokens
   app.post('/tokens', (request, response) => {
@@ -37,7 +42,6 @@ module.exports = function({accountManager, cardsManager}) {
     const username = request.body.username
     const password = request.body.password
 
-    console.log(request.body)
     if(grant_type != "password"){
       response.status(400).json({error: "unsupported_grant_type"})
       return
@@ -53,22 +57,10 @@ module.exports = function({accountManager, cardsManager}) {
               error: "invalid_client"
             })
           } else {
-            console.log("acount id here: ", account.accountId)
-            console.log("acount´HERE ", account)
-
-
-            const accessToken = jwt.sign({accountId: account.accountId, username: account.username}, jwtSecret) //skicaks tillbaka sen
+            const accessToken = jwt.sign({accountId: account.accountId, username: username}, jwtSecret) //skicaks tillbaka sen
             const idToken = jwt.sign({ //bara för att vi ska veta vem klienten är
               sub: account.accountId,
               preferred_username: account.username}, "anotha secret LOLOL")
-
-              console.log("TOKENS HERE: ", accessToken, idToken)
-
-              var decoded = jwt.decode(accessToken);
-              console.log(decoded.header);
-              console.log(decoded.payload)
-              console.log("PAYLOAD:", accessToken.payload)
-              console.log("idTOken PAYLOAD:", idToken.payload)
 
               response.status(200).json({access_token: accessToken, id_token: idToken})
             }
@@ -83,32 +75,30 @@ module.exports = function({accountManager, cardsManager}) {
 
     app.get("/cards", (request, response) => { //TODO auth
 
-      console.log("PAYLOAD HERE:", request.payload)
       if(!request.payload){
         response.status(401).end()
         return
       }
 
-      cardsManager.getAllCards((errors, cards, comments) => {
-        const model = {
-          cards: cards,
-          comments: comments,
-          errors: errors
+      cardsManager.getAllCards((errors, cards) => {
+        if(errors.length > 1) {
+          response.status(400).json(errors)
+        } else {
+          response.status(200).json(cards)
         }
-        response.status(200).json(model)
       })
     })
 
     //TODO så man inte kan skapa kort åt någon annan, kan inte göra et nu? :D
     app.post('/card', (request, response) => { //TODO auth
-      const accountUsername = request.payload.username
 
       const card = {
         title: request.body.cardTitle,
         desc: request.body.cardDesc,
-        author: accountUsername
+        username: request.payload.username
       }
-
+      console.log("Card object: " + card.username)
+      console.log("Username: " + request.payload.username)
       if(!request.payload){
         response.status(401).end()
         return
@@ -124,6 +114,27 @@ module.exports = function({accountManager, cardsManager}) {
         }
       })
     })
+
+    app.get('/cards/:id', (request, response) => {
+      
+      const id = parseInt(request.params.id)
+
+      if(!request.payload){
+        response.status(401).end()
+        return
+      }
+
+      cardsManager.getSpecificCardById(id, (errors, card) => {
+  
+        if(errors.length > 0) {
+          response.status(400).json(errors)
+        }
+        else {
+          response.status(200).json(card)
+        }
+      })
+    })
+
 
     app.put('/card/:id', (request, response) => { //klar funkar fintfint
       const id = parseInt(request.params.id)
@@ -143,7 +154,6 @@ module.exports = function({accountManager, cardsManager}) {
       cardsManager.checkIfCardExists(id, (errorArr) => {
         if(errorArr.length < 1) {
           cardsManager.updateCard(id, card, accountId, (errors, results) => {
-            console.log("RESULTS",results)
             if(errors.length < 1) {
               if(results.affectedRows == 1) {
                 response.status(204).end()

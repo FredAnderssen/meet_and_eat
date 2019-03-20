@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Meet & Eat</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+	<link rel="stylesheet" href="./layout.css" />
+	<link  href="http://fonts.googleapis.com/css?family=Reenie+Beanie:regular" rel="stylesheet" type="text/css">
+	<script src="js/navigation.js"></script>
+	<script src="js/sign-up-page.js"></script>
+	<script src="js/sign-in-page.js"></script>
+	<script src="js/all-cards-page.js"></script>
+	<script src="js/show-card-page.js"></script>
+	<script src="js/edit-card-page.js"></script>
+	<script src="js/create-card-page.js"></script>
+	<script src="../js/jwt-decode.js"></script>
+</head>
+<body>
+
+	<header>
+		Meet & Eat
+	</header>
+
+	<nav>
+		<ul>
+			<li><a href="/">Home</a></li>
+			<li><a href="/about">About</a></li>
+			<li><a href="/contact">Contact</a></li>
+			<li class="show-if-not-logged-in"><a href="/sign-up">Sign up</a></li>
+			<li class="show-if-not-logged-in"><a href="/sign-in">Sign in</a></li>
+			<li class="show-if-logged-in"><a href="/all-cards">All cards</a></li>
+			<li class="show-if-logged-in"><a href="/create-card">Create card</a></li>
+			<li class="show-if-logged-in">Logged in as <span id="username"></span></li>
+		</ul>
+	</nav>
+
+	<main>
+
+		<div id="home-page" class="current-page">
+				<h1>Home</h1>
+				<p>Here is the home page</p>
+		</div>
+
+		<div id="about-page">
+			<h1>About</h1>
+			<p>This is the about page.</p>
+		</div>
+
+		<div id="contact-page">
+			<h1>Contact</h1>
+			<p>This is the contact page.</p>
+		</div>
+
+		<div id="sign-up-page">
+			<h1>Sign up</h1>
+			<form>
+				<div>
+					Username: <input type="text" id="sign-up-username">
+				</div>
+				<div>
+					Password: <input type="text" id="sign-up-password">
+				</div>
+        <div>
+					Email: <input type="text" id="sign-up-email">
+				</div>
+				<input type="submit" value="Sign up">
+			</form>
+		</div>
+
+		<div id="sign-in-page">
+			<h1>Sign in</h1>
+			<form>
+				<div>
+					Username: <input type="text" id="sign-in-username">
+				</div>
+				<div>
+					Password: <input type="text" id="sign-in-password">
+				</div>
+				<input type="submit" value="Sign in">
+			</form>
+		</div>
+
+		<div id="all-cards-page">
+
+			<div class="container special-bg">
+				<div class="special-body">
+					<ul class="special-ul"></ul>
+				</div>
+			</div>
+
+		</div>
+
+		<div id="create-card-page">
+			<h1>Create card</h1>
+			<form>
+				<div>
+					Title: <input type="text" id="create-card-title">
+				</div>
+				<div>
+					Description: <input type="text" id="create-card-description">
+				</div>
+				<input type="submit" value="Create">
+			</form>
+		</div>
+
+		<div id="show-card-page">
+			<div class="columns is-centered special-body">
+				<div class="column is-5 special-card-bg">
+						<h1 class="special-p">Card title</h1>
+						<p>Card description</p>
+						<a id="edit-link">Edit</a>
+				</div>
+			</div>
+		</div>
+
+		<div id="edit-card-page">
+			<h1>Edit card</h1>
+			<form>
+				<div>
+					Title: <input type="text" id="edit-card-title">
+				</div>
+				<div>
+					Description: <input type="text" id="edit-card-description">
+				</div>
+				<input type="submit" value="Update">
+			</form>
+		</div>
+
+	</main>
+
+</body>
+</html>
