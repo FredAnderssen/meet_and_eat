@@ -2,9 +2,6 @@ const MIN_USERNAME_LENGTH = 3
 const MAX_USERNAME_LENGTH = 20
 const MIN_PASSWORD_LENGTH = 3
 
-//const accountManager = require('./account-manager')
-//const crypt = require('../utilities/crypt')
-
 module.exports = function({crypt}) {
 	return {
 		getErrorsNewAccount: function(account, callback){

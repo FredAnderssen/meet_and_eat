@@ -50,14 +50,15 @@ module.exports = function({}) {
     },
 
     createCard: (card, callback) => {
-      const query = 'INSERT INTO cards (cardTitle, cardDesc, accountIdFK) \
-      VALUES (?, ?, (SELECT accountId FROM accounts WHERE username = ?))'
+      const query = 'INSERT INTO cards (cardTitle, cardDesc, accountIdFK, cardAuthor) \
+      VALUES (?, ?, (SELECT accountId FROM accounts WHERE username = ?), \
+      (SELECT username FROM accounts WHERE accountId = ?))'
 
-      const values = [card.title, card.desc, card.username]
+      const values = [card.title, card.desc, card.username, card.accountIdFK]
 
       db.query(query, values, (error, results) => {
         if(error) {
-          callback(['databaseError'], null)
+          callback(['databaseError', error], null)
         } else {
           callback([], results.insertId)
         }
@@ -86,9 +87,22 @@ module.exports = function({}) {
 
       db.query(query, values, function(err, idAccountFK) {
         if(err) {
-          callback(['databaseError deleting card', err], idAccountFK)
+          callback(['databaseError', err], idAccountFK)
         } else {
           callback([], idAccountFK)
+        }
+      })
+    },
+
+    deleteAllComments: function(cardId, callback) {
+      const query = 'DELETE FROM comments WHERE cardIdFK = ?'
+      const values = [cardId]
+
+      db.query(query, values, function(err) {
+        if(err) {
+          callback(['Database error', err])
+        } else {
+          callback([])
         }
       })
     },
@@ -100,14 +114,11 @@ module.exports = function({}) {
 				let resBool = res[0].resObj
 
 				if(error){
-					callback(['databaseError'])
+					callback(['databaseError', error])
 				}else{
 					if(resBool) {
-						//returns 1 card exists
-            console.log("card exist in db!")
 						callback([])
 					}	else {
-						//returns 0 does not exist
 						callback(['database Error, Card does not exists'])
 					}
 				}
@@ -115,14 +126,10 @@ module.exports = function({}) {
 		},
 
     updateCard: (cardId, cardObj, accountId, callback) => {
-      console.log("cardobj.author ::", cardObj.author)
-      console.log(cardId, cardObj, accountId)
-
       const query = 'UPDATE cards SET cardTitle = ?, cardDesc = ?, accountIdFK = (SELECT accountId FROM accounts WHERE username = ?) WHERE cardId = ? AND accountIdFK = ?'
       const values = [cardObj.title, cardObj.desc, cardObj.author, cardId, accountId]
 
       db.query(query, values, (error, results) => {
-        console.log("results in datalayer:", results)
         if(error)
           callback(['database error updating card', error], results)
         else

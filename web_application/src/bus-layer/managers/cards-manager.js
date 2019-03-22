@@ -26,7 +26,12 @@ module.exports = ({cardsRepository}) => {
     },
 
     deleteCard: (cardId, accountId, callback) => {
+      //if comments exist, delete all before delete card
       cardsRepository.deleteCard(cardId, accountId, callback)
+    },
+
+    deleteAllComments: (cardId, callback) => {
+      cardsRepository.deleteAllComments(cardId, callback)
     },
 
     checkIfCardExists: (cardId, callback) => {
