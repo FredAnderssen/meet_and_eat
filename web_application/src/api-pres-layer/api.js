@@ -23,10 +23,8 @@ module.exports = function({accountManager, cardsManager}) {
       const authHeader = request.get("Authorization")
       const accessTokenString = authHeader.substr("Bearer ".length) //TODO funkar inte med google chrome heller nu
       request.payload = jwt.verify(accessTokenString, jwtSecret)
-
-
     } catch(e) {
-      console.log("IN THE CATCH; token missing or invalid ", e)
+
     }
     next()
   })
