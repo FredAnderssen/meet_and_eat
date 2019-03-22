@@ -19,70 +19,217 @@
 </head>
 <body>
 
-	<header>
-		Meet & Eat
-	</header>
-
-	<nav>
-		<ul>
-			<li><a href="/">Home</a></li>
-			<li><a href="/about">About</a></li>
-			<li><a href="/contact">Contact</a></li>
-			<li class="show-if-not-logged-in"><a href="/sign-up">Sign up</a></li>
-			<li class="show-if-not-logged-in"><a href="/sign-in">Sign in</a></li>
-			<li class="show-if-logged-in"><a href="/all-cards">All cards</a></li>
-			<li class="show-if-logged-in"><a href="/create-card">Create card</a></li>
-			<li class="show-if-logged-in">Logged in as <span id="username"></span></li>
-		</ul>
-	</nav>
+	<section class="hero is-info is-medium is-bold">
+		<div class="hero-head">
+			<nav class="navbar">
+				<div class="container">
+					<div class="navbar-brand">
+						<a class="navbar-item" href="/">
+							<b>MEET & EAT</b>
+						</a>
+					</div>
+					<div id="navbarMenu" class="navbar-menu">
+						<div class="navbar-end">
+							<div class="tabs is-right">
+								<ul>
+									<li><a href="/">Home</a></li>
+									<li class="show-if-not-logged-in"><a href="/sign-up">Sign up</a></li>
+									<li class="show-if-not-logged-in"><a href="/sign-in">Sign in</a></li>
+									<li class="show-if-logged-in"><a href="/all-cards">All cards</a></li>
+									<li class="show-if-logged-in"><a href="/create-card">Create card</a></li>
+									<li class="show-if-logged-in">Logged in as <span id="username"></span></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</nav>
+		</div>
+		
 
 	<main>
 
 		<div id="home-page" class="current-page">
-				<h1>Home</h1>
-				<p>Welcome to the homepage</p>
-		</div>
+				<section class="hero is-medium is-info is-bold">
+						<div class="hero-body">
+								<div class="container has-text-centered">
+									<h1 class="title">
+									Never dine alone again,
+									</h1>
+									<h2 class="subtitle">
+									Tired of being the only one with/without a lunchbox? Look no further, this is the perfect platform to find people with similar taste in food!
+									</h2>
+								</div>
+							</div>
+			
+							<div class="box cta">
+									<p class="has-text-centered">
+									</p>
+							</div>
+				</section>
 
-		<div id="about-page">
-			<h1>About</h1>
-			<p>This is the about page.</p>
-		</div>
-
-		<div id="contact-page">
-			<h1>Contact</h1>
-			<p>This is the contact page.</p>
+			<section class="container">
+					<div class="columns features">
+						<div class="column is-2">
+							<div class="card is-shady">
+								<div class="card-image has-text-centered">
+									<i class="fa fa-paw"></i>
+								</div>
+								<div class="card-content">
+									<div class="content">
+										<h4> 1 </h4>
+										<p> If you're new to the site, head over to the "sign up" tab and create an account, 
+											else sign in and get going!.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="column is-2">
+							<div class="card is-shady">
+								<div class="card-image has-text-centered">
+									<i class="fa fa-empire"></i>
+								</div>
+								<div class="card-content">
+									<div class="content">
+										<h4> 2 </h4>
+										<p> Head over to the cards page and either create a card or find your lunch partner! </p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
 		</div>
 
 		<div id="sign-up-page">
-			<h1>Sign up</h1>
-			<form>
-				<div>
-					Username: <input type="text" id="sign-up-username">
+				<section class="hero is-medium is-info is-bold">
+						<div class="hero-body">
+								<div class="container has-text-centered">
+									<h1 class="title">
+									Never dine alone again,
+									</h1>
+									<h2 class="subtitle">
+									Tired of being the only one with/without a lunchbox? Look no further, this is the perfect platform to find people with similar taste in food!
+									</h2>
+								</div>
+							</div>
+			
+							<div class="box cta">
+									<p class="has-text-centered">
+									</p>
+							</div>
+				</section>
+
+				<div class="container">
+						<div class="columns">
+							<div class="column is-centered is-4">
+								<form>
+									<div class="field">
+											<h1>Sign up</h1>
+											<h2>Username</h2>
+											<div class="control has-icons-left has-icons-right">
+											  <input class="input is-rounded" type="text" placeholder="Enter username" id="sign-up-username">
+											  <span class="icon is-small is-left">
+												<i class="fas fa-user"></i>
+											  </span>
+											</div>
+									</div>
+		
+									<div class="field">
+											<h2>Password</h2>
+											<p class="control has-icons-left">
+											  <input class="input is-rounded" type="password" placeholder="Enter password" id="sign-up-password">
+											  <span class="icon is-small is-left">
+												<i class="fas fa-lock"></i>
+											  </span>
+											</p>
+									</div>
+
+									<div class="field">
+											<h2>Email</h2>
+											<p class="control has-icons-left has-icons-right">
+											  <input class="input is-rounded" type="email" placeholder="Email here" id="sign-up-email">
+											  <span class="icon is-small is-left">
+												<i class="fas fa-envelope"></i>
+											  </span>
+											</p>
+										  </div>
+									<input class="button" type="submit" value="Submit input">
+								</form>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div>
-					Password: <input type="password" id="sign-up-password">
-				</div>
-        <div>
-					Email: <input type="text" id="sign-up-email">
-				</div>
-				<input type="submit" value="Sign up">
-			</form>
-		</div>
+			
 
 		<div id="sign-in-page">
-			<h1>Sign in</h1>
-			<form>
-				<div>
-					Username: <input type="text" id="sign-in-username">
-				</div>
-				<div>
-					Password: <input type="password" id="sign-in-password">
-				</div>
-				<input type="submit" value="Sign in">
-			</form>
+				<section class="hero is-medium is-info is-bold">
+						<div class="hero-body">
+								<div class="container has-text-centered">
+									<h1 class="title">
+									Never dine alone again,
+									</h1>
+									<h2 class="subtitle">
+									Tired of being the only one with/without a lunchbox? Look no further, this is the perfect platform to find people with similar taste in food!
+									</h2>
+								</div>
+							</div>
+			
+							<div class="box cta">
+									<p class="has-text-centered">
+									</p>
+							</div>
+				</section>
+
+			<div class="container">
+				<div class="columns">
+					<div class="column is-centered is-4">
+						<form>
+							<div class="field">
+									<h1>Sign in</h1>
+									<h2>Username</h2>
+									<div class="control has-icons-left has-icons-right">
+									  <input class="input is-rounded" type="text" placeholder="Enter username" id="sign-in-username">
+									  <span class="icon is-small is-left">
+										<i class="fas fa-user"></i>
+									  </span>
+									</div>
+							</div>
+
+							<div class="field">
+									<h2>Password</h2>
+									<p class="control has-icons-left">
+									  <input class="input is-rounded" type="password" placeholder="Enter password" id="sign-in-password">
+									  <span class="icon is-small is-left">
+										<i class="fas fa-lock"></i>
+									  </span>
+									</p>
+							</div>
+							<input class="button" type="submit" value="Submit input">
+						</form>
+					</div>
+        </div>
+			</div>
 		</div>
 
 		<div id="all-cards-page">
+				<section class="hero is-medium is-info is-bold">
+						<div class="hero-body">
+								<div class="container has-text-centered">
+									<h1 class="title">
+									Never dine alone again,
+									</h1>
+									<h2 class="subtitle">
+									Tired of being the only one with/without a lunchbox? Look no further, this is the perfect platform to find people with similar taste in food!
+									</h2>
+								</div>
+							</div>
+			
+							<div class="box cta">
+									<p class="has-text-centered">
+									</p>
+							</div>
+				</section>
 
 			<div class="container special-bg">
 				<div class="special-body">
@@ -92,56 +239,154 @@
 
 		</div>
 
-		<div id="create-card-page">
-			<h1>Create card</h1>
-			<form>
-				<div>
-					Title: <input type="text" id="create-card-title">
-				</div>
-				<div>
-					Description: <input type="text" id="create-card-description">
-				</div>
-				<input type="submit" value="Create">
-			</form>
+		<div id="show-card-page">
+				<div class="container">
+					<div class="columns">
+							<div class="column is-5">
+								<ul class="special-ul">
+									<li class="">
+										<h1 class="special-p white-text" id="show-card-title">Card title</h1>
+										<p class="white-text" id="show-card-description">Card description</p>
+										<a id="edit-link" class="white-text">Edit</a>
+										<a id="delete-link" class="white-text">Delete</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
 		</div>
 
-		<div id="show-card-page">
-			<div class="columns is-centered special-body">
-				<div class="column is-5 special-card-bg">
-						<h1 class="special-p">Card title</h1>
-						<p>Card description</p>
-						<a id="edit-link">Edit</a>
-						<a id="delete-link">Delete</a>
+		<div id="create-card-page">
+				<section class="hero is-medium is-info is-bold">
+						<div class="hero-body">
+								<div class="container has-text-centered">
+									<h1 class="title">
+									Never dine alone again, 
+									</h1>
+									<h2 class="subtitle">
+									Tired of being the only one with/without a lunchbox? Look no further, this is the perfect platform to find people with similar taste in food!
+									</h2>
+								</div>
+							</div>
+			
+							<div class="box cta">
+									<p class="has-text-centered">
+									</p>
+							</div>
+				</section>
+
+				<div class="container">
+					<div class="columns">
+						<div class="column is-centered is-4">
+							<h1>Create card</h1>
+							<form>
+								<div class="field">
+										<h2>Title</h2>
+										<p class="control has-icons-left">
+										<input class="input is-rounded" type="text" placeholder="Enter title" id="create-card-title">
+										</p>
+								</div>
+
+								<div class="field">
+										<h2>Description</h2>
+										<p class="control has-icons-left">
+										<input class="input is-rounded" type="text" placeholder="Enter description" id="create-card-description">
+										</p>
+								</div>
+								<input class="button" type="submit" value="Submit input">
+							</form>
+						</div>
+					</div>
 				</div>
-			</div>
 		</div>
 
 		<div id="delete-card-page">
-				<div class="columns is-centered special-body">
-					<div class="column is-5 special-card-bg">
+				<section class="hero is-medium is-info is-bold">
+						<div class="hero-body">
+								<div class="container has-text-centered">
+									<h1 class="title">
+									Never dine alone again,
+									</h1>
+									<h2 class="subtitle">
+									Tired of being the only one with/without a lunchbox? Look no further, this is the perfect platform to find people with similar taste in food!
+									</h2>
+								</div>
+							</div>
+			
+							<div class="box cta">
+									<p class="has-text-centered">
+									</p>
+							</div>
+				</section>
+						
+				<div class="container">
+						<div class="columns">
+							<div class="column is-centered is-4">
 							<h1 class="special-p">Delete card:</h1>
 							<p>Card Title</p>
 							<form>
-								<input type="submit" value="Delete">
-							</form>
+								<input class="button" type="submit" value="Delete">							
+							</form>						
 					</div>
 				</div>
 			</div>
-
-		<div id="edit-card-page">
-			<h1>Edit card</h1>
-			<form>
-				<div>
-					Title: <input type="text" id="edit-card-title">
-				</div>
-				<div>
-					Description: <input type="text" id="edit-card-description">
-				</div>
-				<input type="submit" value="Update">
-			</form>
 		</div>
 
+		<div id="edit-card-page">
+			<section class="hero is-medium is-info is-bold">
+					<div class="hero-body">
+							<div class="container has-text-centered">
+								<h1 class="title">
+								Never dine alone again,
+								</h1>
+								<h2 class="subtitle">
+								Tired of being the only one with/without a lunchbox? Look no further, this is the perfect platform to find people with similar taste in food!
+								</h2>
+							</div>
+						</div>
+		
+						<div class="box cta">
+								<p class="has-text-centered">
+								</p>
+						</div>
+			</section>
+
+			<div class="container">
+					<div class="columns">
+						<div class="column is-centered is-4">
+							<h1>Edit card</h1>
+							<form>
+								<div class="field">
+										<p class="control has-icons-left">
+										<input class="input is-rounded" type="text" placeholder="New title" id="edit-card-title">
+										</p>
+								</div>
+								<div class="field">
+										<p class="control has-icons-left">
+										<input class="input is-rounded" type="text" placeholder="New description" id="edit-card-description">
+										</p>
+								</div>
+								<input class="button" type="submit" value="Update">
+							</form>
+						</div>
+					</div>
+			</div>
+		</div>
 	</main>
+
+
+
+
+	<footer class="footer">
+            <div class="container">
+                <div class="columns is-centered">
+                    <div class="column is-full">
+                        <h1 class="black-text">Meet And Eat platform | Developed by Fredric & Joakim | Web development advanced concepts</h1>
+                    </div>
+                </div>
+            </div>
+    </footer>
+
 
 </body>
 </html>

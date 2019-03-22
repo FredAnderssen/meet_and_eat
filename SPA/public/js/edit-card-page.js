@@ -21,7 +21,6 @@ function updateEditCardPage(cardId){
 		
 	}).catch(function(error){
 	})
-	
 }
 
 document.addEventListener("DOMContentLoaded", function(){
@@ -44,7 +43,6 @@ document.addEventListener("DOMContentLoaded", function(){
 		}).then(function(response){
 			changePage("/all-cards")
 		}).catch(function(error){
-			console.log(error)
 		})	
 	})	
 })

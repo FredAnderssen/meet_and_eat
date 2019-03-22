@@ -15,10 +15,10 @@ function getAllCards(){
 		for(const card of cards){
 			
 			const li = document.createElement("li")
-			li.setAttribute("class", "special-ul-li")
+			li.setAttribute("class", "special-ul-li black-text")
 			
 			const a = document.createElement("a")
-			a.setAttribute("class", "special-p special-a")
+			a.setAttribute("class", "special-p special-a black-text")
 			a.innerText = card.cardTitle
 			a.setAttribute("href", "/cards/"+card.cardId)
 			a.addEventListener("click", handleClickOnAnchor)
