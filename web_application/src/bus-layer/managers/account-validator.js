@@ -2,16 +2,12 @@ const MIN_USERNAME_LENGTH = 3
 const MAX_USERNAME_LENGTH = 20
 const MIN_PASSWORD_LENGTH = 3
 
-//const accountManager = require('./account-manager')
-//const crypt = require('../utilities/crypt')
-
 module.exports = function({crypt}) {
 	return {
 		getErrorsNewAccount: function(account, callback){
 			const errors = []
 
 			console.log("ACCOUNT OBJECT HEEEEEEERE:",account)
-			// Validate username.
 			if(!account.hasOwnProperty("username")){
 				errors.push("No username entered")
 			}else if(account.username.length < MIN_USERNAME_LENGTH){

@@ -1,9 +1,3 @@
-//till peter:
-//1. fråga om jag applicerat mobile appen rätt, enligt hans instruktioner, ja //ha en main fil med de två apparna, och awilix i.
-//2. hur vet systemet om clienten ska använda /mobie eller /desktop ? de som är på pc ska ju inte lyckas komma in i /mobileApp
-//3. updatedcard vad händer?
-//4. OAuth2.0 med jwt tokens, fattar nada?
-//5. ska vi göra det snyggt med responsen i json? Ja sen i SPA
 module.exports = function({accountManager, cardsManager}) {
   const app = require('express')();
   const bodyParser = require('body-parser')
@@ -13,9 +7,9 @@ module.exports = function({accountManager, cardsManager}) {
   app.use(bodyParser.json())
   app.use(bodyParser.urlencoded({extended: false}))
 
-  //CORS middleware
+
   app.use(function(request, response, next) {
-    response.setHeader('Access-Control-Allow-Origin', '*') //TODO fråga plg varför Safari fucked up?
+    response.setHeader('Access-Control-Allow-Origin', '*')
     response.setHeader('Access-Control-Allow-Methods', '*')
     response.setHeader('Access-Control-Allow-Headers', '*')
 
@@ -26,17 +20,13 @@ module.exports = function({accountManager, cardsManager}) {
 
     try {
       const authHeader = request.get("Authorization")
-      const accessTokenString = authHeader.substr("Bearer ".length) //TODO varför tar peter 7 raden?, funkar inte med det
+      const accessTokenString = authHeader.substr("Bearer ".length)
       request.payload = jwt.verify(accessTokenString, jwtSecret)
 
-    } catch(e) {
-      //..access token missing or invalid
-      console.log("IN THE CATCH; token missing or invalid ", e)
-    }
+    } catch(e) {}
     next()
-  }) 
+  })
 
-  //loggar in här och får tilldelat två tokens
   app.post('/tokens', (request, response) => {
     const grant_type = request.body.grant_type
     const username = request.body.username
@@ -57,8 +47,8 @@ module.exports = function({accountManager, cardsManager}) {
               error: "invalid_client"
             })
           } else {
-            const accessToken = jwt.sign({accountId: account.accountId, username: username}, jwtSecret) //skicaks tillbaka sen
-            const idToken = jwt.sign({ //bara för att vi ska veta vem klienten är
+            const accessToken = jwt.sign({accountId: account.accountId, username: username}, jwtSecret)
+            const idToken = jwt.sign({
               sub: account.accountId,
               preferred_username: account.username}, "anotha secret LOLOL")
 
@@ -73,7 +63,7 @@ module.exports = function({accountManager, cardsManager}) {
       response.status(200).json("API Route")
     });
 
-    app.get("/cards", (request, response) => { //TODO auth
+    app.get("/cards", (request, response) => {
 
       if(!request.payload){
         response.status(401).end()
@@ -89,16 +79,15 @@ module.exports = function({accountManager, cardsManager}) {
       })
     })
 
-    //TODO så man inte kan skapa kort åt någon annan, kan inte göra et nu? :D
-    app.post('/card', (request, response) => { //TODO auth
+    app.post('/card', (request, response) => {
 
       const card = {
         title: request.body.cardTitle,
         desc: request.body.cardDesc,
-        username: request.payload.username
+        username: request.payload.username,
+        accountIdFK: request.payload.accountId
       }
-      console.log("Card object: " + card.username)
-      console.log("Username: " + request.payload.username)
+
       if(!request.payload){
         response.status(401).end()
         return
@@ -116,7 +105,7 @@ module.exports = function({accountManager, cardsManager}) {
     })
 
     app.get('/cards/:id', (request, response) => {
-      
+
       const id = parseInt(request.params.id)
 
       if(!request.payload){
@@ -125,7 +114,7 @@ module.exports = function({accountManager, cardsManager}) {
       }
 
       cardsManager.getSpecificCardById(id, (errors, card) => {
-  
+
         if(errors.length > 0) {
           response.status(400).json(errors)
         }
@@ -136,7 +125,7 @@ module.exports = function({accountManager, cardsManager}) {
     })
 
 
-    app.put('/card/:id', (request, response) => { //klar funkar fintfint
+    app.put('/card/:id', (request, response) => {
       const id = parseInt(request.params.id)
       const accountId = request.payload.accountId
       const accountUsername = request.payload.username
@@ -180,18 +169,23 @@ module.exports = function({accountManager, cardsManager}) {
 
       const accountId = request.payload.accountId
 
-      cardsManager.checkIfCardExists(id, function(errorArr) { //verkar fungera fintfint, Erika kan inte deleta Simmes kort
+      cardsManager.checkIfCardExists(id, function(errorArr) {
         if(errorArr.length < 1) {
-          cardsManager.deleteCard(id, accountId, function(errArr, recvAccId) {
-            if(errArr.length < 1) {
-              console.log("results",recvAccId)
-              if(recvAccId.affectedRows == 1) {
-                response.status(204).end()
-              } else {
-                response.status(401).end()
-              }
-            } else
-            response.status(400).json({errors: errArr})
+          cardsManager.deleteAllComments(id, function(errors) {
+            if(errors.length < 1) {
+              cardsManager.deleteCard(id, accountId, function(errArr, recvAccId) {
+                if(errArr.length < 1) {
+                  if(recvAccId.affectedRows == 1) {
+                    response.status(204).end()
+                  } else {
+                    response.status(401).end()
+                  }
+                } else
+                response.status(400).json({errors: errArr})
+              })
+            } else {
+              response.status(400).json({errors: errors})
+            }
           })
         } else {
           response.status(400).json({errors: errorArr})

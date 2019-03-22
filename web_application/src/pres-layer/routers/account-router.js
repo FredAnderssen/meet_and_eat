@@ -3,13 +3,12 @@ const express = require('express')
 module.exports = function({accountManager}) {
   const router = express.Router()
 
-  //....alla middlewares här
   router.get("/sign-up", function(request, response){
     response.render("accounts-sign-up.hbs")
   })
 
   router.get("/sign-in", function(request, response){
-    response.render("accounts-sign-in.hbs")	//TODO temporarily View
+    response.render("accounts-sign-in.hbs")
   })
 
   router.post('/sign-in', function(request, response) {
@@ -47,12 +46,15 @@ module.exports = function({accountManager}) {
 
   router.get("/", function(request, response){
     accountManager.getAllAccounts(function(errors, accounts){
-      console.log(errors, accounts) //TODO
-      const model = {
-        errors: errors,
-        accounts: accounts
+      if(errors.length > 0) {
+        response.render("error.hbs", {model: errors})
+      } else {
+        const model = {
+          errors: errors,
+          accounts: accounts
+        }
+        response.render("accounts-sign-up.hbs", model)
       }
-      response.render("accounts-sign-up.hbs", model)
     })
   })
 
@@ -74,7 +76,7 @@ module.exports = function({accountManager}) {
     var accountCredentials = {
       username: request.body.username,
       email: request.body.email,
-      password1: request.body.password1, //TODO hash password
+      password1: request.body.password1,
       password2: request.body.password2
     }
 
@@ -87,6 +89,11 @@ module.exports = function({accountManager}) {
       }
     })
   })
+
+  router.post('/logut', function(req, res) {
+	    const session = req.session.isLoggedIn = false
+	    res.redirect("/")
+	})
 
   return router
 }
