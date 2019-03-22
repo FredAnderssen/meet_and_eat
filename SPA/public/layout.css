@@ -40,12 +40,20 @@ main > div{
 	display: block;
 }
 
+  .black-text{
+    color:#000
+  }
+
+  .white-text{
+    color:#ffc
+  }
+
   .special-body{
     font-family:arial,sans-serif;
     font-size:100%;
     margin:3em;
     background:#505050;
-    color:#fff;
+    color:#000;
   }
   .special-p{
     font-family:"Reenie Beanie",arial,sans-serif;
