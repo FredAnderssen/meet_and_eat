@@ -65,7 +65,6 @@ module.exports = function({}) {
       })
     },
 
-
     createComment: (comment, callback) => {
       const query = "INSERT INTO comments (comment, cardIdFK) \
       VALUES (?, ?)"

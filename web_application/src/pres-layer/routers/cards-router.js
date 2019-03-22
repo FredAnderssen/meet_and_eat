@@ -86,7 +86,6 @@ module.exports = ({cardsManager}) => {
 		cardsManager.addComment(comment, (errors, callback) => {
 
 		})
-
 		response.redirect("../open-card/" + [comment.id])
 	})
 

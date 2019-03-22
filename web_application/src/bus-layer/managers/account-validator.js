@@ -8,7 +8,6 @@ module.exports = function({crypt}) {
 			const errors = []
 
 			console.log("ACCOUNT OBJECT HEEEEEEERE:",account)
-			// Validate username.
 			if(!account.hasOwnProperty("username")){
 				errors.push("No username entered")
 			}else if(account.username.length < MIN_USERNAME_LENGTH){
