@@ -7,7 +7,6 @@ module.exports = function({crypt}) {
 		getErrorsNewAccount: function(account, callback){
 			const errors = []
 
-			console.log("ACCOUNT OBJECT HEEEEEEERE:",account)
 			if(!account.hasOwnProperty("username")){
 				errors.push("No username entered")
 			}else if(account.username.length < MIN_USERNAME_LENGTH){
