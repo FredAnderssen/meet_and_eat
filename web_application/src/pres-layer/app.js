@@ -37,7 +37,6 @@ module.exports = function({accountRouter, cardsRouter}) {
 
   app.use(cookieParser())
 
-  // Attach all routers
   app.use('/accounts', accountRouter)
   app.use('/', cardsRouter)
 

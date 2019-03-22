@@ -49,11 +49,11 @@ module.exports = function({}) {
       })
     },
 
-    createCard: (card, callback) => {
-      const query = 'INSERT INTO cards (cardTitle, cardDesc, accountIdFK) \
-      VALUES (?, ?, (SELECT accountId FROM accounts WHERE username = ?))'
+    createCard: (card, callback) => { //TODO FAKK FUNKAR INTE
+      const query = 'INSERT INTO cards (cardTitle, cardDesc, accountIdFK, cardAuthor) \
+      VALUES (?, ?, (SELECT accountId FROM accounts WHERE username = ?), (SELECT username FROM accounts WHERE accountId = ?))'
 
-      const values = [card.title, card.desc, card.username]
+      const values = [card.title, card.desc, card.author, card.accountIdFK]
 
       db.query(query, values, (error, results) => {
         if(error) {
@@ -103,11 +103,8 @@ module.exports = function({}) {
 					callback(['databaseError'])
 				}else{
 					if(resBool) {
-						//returns 1 card exists
-            console.log("card exist in db!")
 						callback([])
 					}	else {
-						//returns 0 does not exist
 						callback(['database Error, Card does not exists'])
 					}
 				}
@@ -115,14 +112,10 @@ module.exports = function({}) {
 		},
 
     updateCard: (cardId, cardObj, accountId, callback) => {
-      console.log("cardobj.author ::", cardObj.author)
-      console.log(cardId, cardObj, accountId)
-
       const query = 'UPDATE cards SET cardTitle = ?, cardDesc = ?, accountIdFK = (SELECT accountId FROM accounts WHERE username = ?) WHERE cardId = ? AND accountIdFK = ?'
       const values = [cardObj.title, cardObj.desc, cardObj.author, cardId, accountId]
 
       db.query(query, values, (error, results) => {
-        console.log("results in datalayer:", results)
         if(error)
           callback(['database error updating card', error], results)
         else

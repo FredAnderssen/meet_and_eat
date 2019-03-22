@@ -12,6 +12,7 @@ CREATE TABLE cards (
 	accountIdFK INT UNSIGNED,
 	cardTitle VARCHAR(50) NOT NULL,
 	cardDesc VARCHAR(150) NOT NULL,
+	cardAuthor VARCHAR(150) NOT NULL,
 	FOREIGN KEY (accountIdFK) REFERENCES accounts(accountId),
 	CONSTRAINT titleUnique UNIQUE (cardTitle)
 );
@@ -23,4 +24,3 @@ CREATE TABLE comments (
 	FOREIGN KEY (cardIdFK) REFERENCES cards(cardId),
 	CONSTRAINT commentUnique UNIQUE (comment)
 );
-

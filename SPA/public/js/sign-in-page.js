@@ -24,6 +24,8 @@ document.addEventListener("DOMContentLoaded", function(){
 			accessToken = body.access_token
 			const idToken = body.id_token
 
+			console.log("KOLA HÄR: ", accessToken)
+
 			userInfo = jwt_decode(idToken)
 
 			document.querySelector("nav").classList.add("user-is-logged-in")
