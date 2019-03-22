@@ -9,7 +9,6 @@ module.exports = function({accountRouter, cardsRouter}) {
   const router = express.Router()
   const app = express()
 
-
   app.set('views', path.join(__dirname, 'views'))
   app.engine('hbs', expressHandlebars({
     defaultLayout: 'main',
@@ -36,8 +35,6 @@ module.exports = function({accountRouter, cardsRouter}) {
   //****************************//
 
   app.use(cookieParser())
-
-  // Attach all routers
   app.use('/accounts', accountRouter)
   app.use('/', cardsRouter)
 

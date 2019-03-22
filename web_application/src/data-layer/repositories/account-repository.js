@@ -2,27 +2,25 @@ const db = require('./db')
 
 module.exports = function({}) {
 	return {
-		//alla funktioner i här
 		getAllAccounts: function(callback) {
 			const query = `SELECT * FROM accounts ORDER BY username`
 			const values = []
 
 			db.query(query, values, function(error, accounts){
 				if(error){
-					callback(['databaseError'], null)
+					callback(['databaseError', error], null)
 				}else{
 					callback([], accounts)
 				}
 			})
 		},
 
-		getAccountByUsername: function(username, callback){ //TODO får vi tillbaka account här? ja
+		getAccountByUsername: function(username, callback){
 			const query = `SELECT * FROM accounts WHERE username = ? LIMIT 1`
 			const values = [username]
 			db.query(query, values, function(error, accounts){
 				if(error){
-					console.log("ERROR IN ACCOUNT BY USERNAME " + error)
-					callback(['databaseError'], null)
+					callback(['databaseError', error], null)
 				}else{
 					callback([], accounts[0])
 				}
@@ -36,13 +34,11 @@ module.exports = function({}) {
 				let resBool = res[0].resKey
 
 				if(error){
-					callback(['databaseError'])
+					callback(['databaseError', error])
 				}else{
 					if(resBool) {
-						//returns 1 username exists
 						callback([])
 					}	else {
-						//returns 0 does not exist
 						callback(['database Error, User does not exists'])
 					}
 				}
@@ -50,14 +46,11 @@ module.exports = function({}) {
 		},
 
 		createAccount: function(account, callback){
-
 			const query = `INSERT INTO accounts (email, username, password) VALUES (?, ?, ?)`
 			const values = [account.email, account.username, account.password1]
 
 			db.query(query, values, function(error, results){
-				console.log("error in createAccount:",error)
 				if(error){
-					// TODO: Look for usernameUnique violation.
 					callback(['databaseError', error.message], null)
 				}else{
 					callback([], results.insertId)
