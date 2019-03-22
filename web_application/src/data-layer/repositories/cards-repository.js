@@ -49,7 +49,7 @@ module.exports = function({}) {
       })
     },
 
-    createCard: (card, callback) => {
+    createCard: (card, callback) => { //TODO FAKK FUNKAR INTE
       const query = 'INSERT INTO cards (cardTitle, cardDesc, accountIdFK, cardAuthor) \
       VALUES (?, ?, (SELECT accountId FROM accounts WHERE username = ?), (SELECT username FROM accounts WHERE accountId = ?))'
 

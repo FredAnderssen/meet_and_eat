@@ -21,7 +21,7 @@ module.exports = function({accountManager, cardsManager}) {
     //console.log("authheader:", authHeader)
     try {
       const authHeader = request.get("Authorization")
-      const accessTokenString = authHeader //TODO funkar inte med google chrome heller nu
+      const accessTokenString = authHeader.substr("Bearer ".length) //TODO funkar inte med google chrome heller nu
       request.payload = jwt.verify(accessTokenString, jwtSecret)
 
 
@@ -92,6 +92,7 @@ module.exports = function({accountManager, cardsManager}) {
       console.log("Card object: " + card.username)
       console.log("Username: " + request.payload.username)
       if(!request.payload){
+        console.log("I AM IN !req payload in POST CARD")
         response.status(401).end()
         return
       }
@@ -162,10 +163,11 @@ module.exports = function({accountManager, cardsManager}) {
       })
     })
 
-    app.delete('/card/:id',  function(request, response) {
+    app.delete('/card/:id',  function(request, response) { //funkar inte riktigt?
       const id = parseInt(request.params.id)
 
       if(!request.payload) {
+        console.log("i am in !request payload in delete")
         response.status(401).end()
         return
       }

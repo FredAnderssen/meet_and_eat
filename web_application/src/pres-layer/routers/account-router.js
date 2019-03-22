@@ -89,5 +89,10 @@ module.exports = function({accountManager}) {
     })
   })
 
+  router.post('/logut', function(req, res) {
+    const session = req.session.isLoggedIn = false
+    res.redirect("/")
+  })
+
   return router
 }
