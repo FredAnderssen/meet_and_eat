@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --inspect=0.0.0.0 src/pres-layer/app.js -L"
+    "start": "nodemon --inspect=0.0.0.0 src/pres-layer/main.js -L"
   },
   "repository": {
     "type": "git",
@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/FredAnderssen/meet_and_eat#readme",
   "dependencies": {
+    "awilix": "^4.2.0",
     "bcrypt": "^3.0.4",
     "body-parser": "^1.18.3",
     "connect-redis": "^3.4.0",
@@ -26,9 +27,14 @@
     "express-handlebars": "^3.0.0",
     "express-mysql-session": "^2.1.0",
     "express-session": "^1.15.6",
+    "jsonwebtoken": "^8.5.0",
     "mysql": "^2.16.0",
+    "mysql2": "^1.6.5",
     "nodemon": "^1.18.9",
-    "redis": "^2.8.0"
+    "redis": "^2.8.0",
+    "sequelize": "^4.43.0",
+    "sequelize-cli": "^5.4.0",
+    "tedious": "^5.0.3"
   },
   "description": ""
 }

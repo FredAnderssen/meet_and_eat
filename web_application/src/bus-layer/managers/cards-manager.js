@@ -1,25 +1,40 @@
-const cardsRepository = require('../../data-layer/repositories/cards-repository')
+module.exports = ({cardsRepository}) => {
+  return {
 
-exports.getAllCards = callback => {
-  cardsRepository.getAllCards(callback)
-}
+    getAllCards: (cards) => {
+      cardsRepository.getAllCards(cards)
+    },
 
-exports.createNewCard = (cardObj, callback) => {
-  cardsRepository.createCard(cardObj, callback)
-}
+    createNewCard: (cardObj, callback) => {
+      cardsRepository.createCard(cardObj, callback)
+    },
 
-exports.getCardID = callback => {
-  cardsRepository.getID(callback)
-}
+    getCardID: callback => {
+      cardsRepository.getID(callback)
+    },
 
-exports.getSpecificCardById = (id, callback) => {
-  cardsRepository.getCardById(id, callback)
-}
+    getSpecificCardById: (id, callback) => {
+      cardsRepository.getCardById(id, callback)
+    },
 
-exports.getCommentsById = (id, callback) => {
-  cardsRepository.getCommentsById(id, callback)
-}
+    getCommentsById: (id, callback) => {
+      cardsRepository.getCommentsById(id, callback)
+    },
 
-exports.addComment = (comment, id, callback) => {
-  cardsRepository.createComment(comment, id, callback)
+    addComment: (comment, id, callback) => {
+      cardsRepository.createComment(comment, id, callback)
+    },
+
+    deleteCard: (cardId, accountId, callback) => {
+      cardsRepository.deleteCard(cardId, accountId, callback)
+    },
+
+    checkIfCardExists: (cardId, callback) => {
+      cardsRepository.checkIfCardExists(cardId, callback)
+    },
+
+    updateCard: (cardId, cardObj, accountId, callback) => {
+      cardsRepository.updateCard(cardId, cardObj, accountId, callback)
+    }
+  }
 }

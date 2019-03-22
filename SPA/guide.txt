@@ -1,0 +1,12 @@
+SPA/ingine/
+
+ingine dockerfile
+one html file, rest js
+
+-ports
+  3001:80
+
+  cross-origin resource sharing,
+  i headern app.js sätt för alal adresser urier urler
+  app.use(req res next)
+    CORS
